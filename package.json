@@ -1,0 +1,20 @@
+{
+  "name": "spaceman",
+  "version": "0.0.0",
+  "description": "react workspace - layout - manager",
+  "main": "lib/nidex.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "layout",
+    "manager",
+    "workspace",
+    "react"
+  ],
+  "author": "Polgár András",
+  "license": "MIT",
+  "dependencies": {
+    "lodash.merge": "^3.0.3"
+  }
+}
