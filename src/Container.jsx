@@ -1,47 +1,82 @@
 var React = require('react');
 var SizeableMixin = require('./mixins/SizeableMixin');
 var merge = require('lodash.merge');
+var colors = require('colors.css');
+var getColor = () => {
+  var names = Object.keys(colors);
+  return colors[names[~~(Math.random()*names.length)]];
+};
 
-module.exports(React.createClass({
+var Container = React.createClass({
 
   mixins: [SizeableMixin],
 
-  getSizeStyle(size, sizeType) {
+  getDefaultProps() {
+    return {
+      direction: 'row',
+    };
+  },
 
-    var flex = '', width = '', height = '';
+  getContainerStyle(size, sizeMode) {
 
-    if (sizeType === 'fix') {
+    var flex, width = '100%', height = '100%';
+
+    if (sizeMode === 'fix') {
 
       if (this.props.direction === 'row') {
 
-        width = this.size + 'px';
+        width = size + 'px';
       }
       else {
-        height = this.size + 'px';
+        height = size + 'px';
       }
     }
-    else if (sizeType === 'flex') {
+    else if (sizeMode === 'flex') {
 
       flex = size;
     }
 
-    return {flex, width, height};
+    return {
+      flex, width, height,
+      border:'solid 1px black',
+      position: 'relative',
+      background: getColor(),
+    };
   },
 
   render() {
 
-    this.props.children.forEach(child => {
+//     var fullFlex = 0; fullFix = 0;
+//
+//     React.Children.map(this.props.children, child => {
+//
+//       var size = child.props.size;
+//       var sizeMode = child.props.sizeMode;
+//     });
+
+    var children = React.Children.map(this.props.children, child => {
 
       var size = child.props.size;
       var sizeMode = child.props.sizeMode;
-      var direction = this.props.direction;
-      var sizeStyle = this.getSizeStyle(size, sizeMode, direction);
-      child.props.style = merge({}, child.props.style, sizeStyle);
-
+      var contStyle = this.getContainerStyle(size, sizeMode);
+      // child.props.style = merge({}, child.props.style, sizeStyle);
+console.log(contStyle, size, sizeMode)
+      return <div style={contStyle}>{child}</div>;
     });
-    
-    return <div style={this.props.style}>
-      {this.props.children}
+
+    var s = {
+      display: 'flex',
+      position: 'absolute',
+      flexDirection: this.props.direction,
+      width: '100%',
+      height: '100%',
+      background: getColor(),
+    };
+
+    return <div style={s}>
+      {children}
     </div>;
   }
-}));
+});
+
+module.exports = Container;

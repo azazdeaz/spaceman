@@ -1,10 +1,11 @@
 var React = require('react');
 var SizeableMixin = require('./mixins/SizeableMixin');
-var Tab = require('./Tab');
+var Tab = require('./Tab.jsx');
 var merge = require('lodash.merge');
-var {Tab: MatterTab, Tabs: MatterTabs} = require('react-matterkit');
+var matterkit = require('react-matterkit');
+var {Tabs: MatterTabs} = require('react-matterkit');
 
-module.exports(React.createClass({
+var Block = React.createClass({
 
   mixins: [SizeableMixin],
 
@@ -14,28 +15,18 @@ module.exports(React.createClass({
     };
   },
 
+
   render() {
-
-    this.props.children.map(child => {
-
-      if (child.type !== MatterTab) {
-
-        return <MatterTab label={child.props.label} icon={child.props.icon}>
-          {child}
-        </MatterTab>;
-      }
-      else {
-        return child;
-      }
-    });
 
     if (!this.props.hole) {
       return <div/>;
     }
     else {
-      return <MatterTabs style={this.props.style}>
+      return <MatterTabs style={s}>
         {this.props.children}
       </MatterTabs>;
     }
   }
-}));
+});
+
+module.exports = Block;

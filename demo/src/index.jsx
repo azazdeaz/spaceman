@@ -1,11 +1,16 @@
 var React = require('react');
-var {Spaceman, Tab, Block, Container} = require('spaceman');
+var {Spaceman, Tab, Block, Container} = require('../../src/index');
+
+var cw = console.warn;
+console.warn = function () {debugger;cw.apply(this, arguments);};
+
+// React.render(<Tab>allo</Tab>, document.body);
 
 React.render(<Spaceman>
   <Container direction='column'>
-    <Block>
-      <Tab id='toolbar' size={32} scaleMode='px'/>
-    <Block/>
+    <Block size={32} sizeMode='fix'>
+      <Tab id='toolbar'/>
+    </Block>
     <Container>
       <Container direction='row'>
         <Block size={1}>
@@ -25,4 +30,4 @@ React.render(<Spaceman>
       <Tab id="timeline" hideHead={true}>this is the timeline tab</Tab>
     </Block>
   </Container>
-</Spaceman>);
+</Spaceman>, document.body);

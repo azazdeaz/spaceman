@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prebuild": "rm -rf build && node_modules/.bin/copyfiles index.html build",
-    "build": "node_modules/.bin/browserify src/index.js --debug | exorcist build/index.js.map > build/index.js",
-    "serve": "node_modules/.bin/browser-sync start --server build --files 'build/index.js'",
-    "postbuild": "npm run serve"
+    "prebuild": "rm -rf build && copyfiles -f src/index.html build",
+    "build": "browserify src/index.jsx -t babelify --debug | exorcist build/index.js.map > build/index.js",
+    "dev": "watchify src/index.jsx -t babelify --debug -o build/index.js",
+    "serve": "browser-sync start --server build --files 'build/**'"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +16,7 @@
     "copyfiles": "^0.1.0",
     "watchify": "^2.4.0",
     "react": "^0.12.2",
-    "babelify": "^5.0.4"
+    "babelify": "^5.0.4",
+    "browser-sync": "^2.3.1"
   }
 }
