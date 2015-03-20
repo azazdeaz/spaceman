@@ -6,6 +6,7 @@ var getColor = () => {
   var names = Object.keys(colors);
   return colors[names[~~(Math.random()*names.length)]];
 };
+var {style} = require('react-matterkit');
 
 var Container = React.createClass({
 
@@ -38,10 +39,14 @@ var Container = React.createClass({
 
     return {
       flex, width, height,
-      border:'solid 1px black',
+      // border:'solid 1px black',
       position: 'relative',
-      background: getColor(),
+      // background: getColor(),
     };
+  },
+
+  componentDidMount() {
+    setTimeout(()=>this.getDOMNode().addEventListener('click', () => console.log('qwwqwqwq')), 1234);
   },
 
   render() {
@@ -59,9 +64,8 @@ var Container = React.createClass({
       var size = child.props.size;
       var sizeMode = child.props.sizeMode;
       var contStyle = this.getContainerStyle(size, sizeMode);
-      // child.props.style = merge({}, child.props.style, sizeStyle);
-console.log(contStyle, size, sizeMode)
-      return <div style={contStyle}>{child}</div>;
+// console.log(contStyle, size, sizeMode)
+      return <div style={contStyle} onClick={()=>console.log('containerCont')}>{child}</div>;
     });
 
     var s = {
@@ -70,10 +74,10 @@ console.log(contStyle, size, sizeMode)
       flexDirection: this.props.direction,
       width: '100%',
       height: '100%',
-      background: getColor(),
+      background: style.grey.normal,
     };
 
-    return <div style={s}>
+    return <div style={s} onClick={()=>console.log('container')}>
       {children}
     </div>;
   }

@@ -15,7 +15,6 @@
     "browserify": "^9.0.3",
     "copyfiles": "^0.1.0",
     "watchify": "^2.4.0",
-    "react": "^0.12.2",
     "babelify": "^5.0.4",
     "browser-sync": "^2.3.1"
   }

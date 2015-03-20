@@ -4,12 +4,16 @@ var Tab = React.createClass({
 
   getDefaultProps() {
     return {
-      hideableHeader: false,
+      label: 'Tab',
+      id: undefined,
+      hideableHead: false,
     };
   },
 
   render() {
-    return <div>{this.props.children}</div>;
+    return <div label={this.props.label}>
+      {this.props.children}
+    </div>;
   }
 });
 
