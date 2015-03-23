@@ -2,6 +2,9 @@ var React = require('react');
 var {Spaceman, Tab, Block, Container} = require('../../src/index');
 var {style} = require('react-matterkit');
 
+var FakeHierarchy = require('./FakeHierarchy.jsx');
+var JVDemo = require('./JVDemo.jsx');
+
 // var cw = console.warn;
 // console.warn = function () {debugger;cw.apply(this, arguments);};
 
@@ -26,7 +29,7 @@ React.render(<Spaceman>
       <Container>
         <Container direction='row'>
           <Block size={1}>
-            <Tab id='history' label='history'>history</Tab>
+            <Tab id='history' label='history'><FakeHierarchy/></Tab>
             <Tab id='project' label='project'>project</Tab>
             <Tab id='color palette' label='color palette'>color</Tab>
           </Block>
@@ -38,9 +41,9 @@ React.render(<Spaceman>
         </Container>
       </Container>
     </Container>
-    <Block size={1}>
-      <Tab id='Attributes' label='Attributes'>history</Tab>
-      <Tab id='Behaviours' label='Behaviours'>project</Tab>
+    <Block size={2}>
+      <Tab id='Controlls Demo' label='Controlls Demo'><JVDemo/></Tab>
+      <Tab id='Behaviours' label='Behaviours'>behaviours</Tab>
       <Tab id='Tree' label='Tree'>color</Tab>
     </Block>
   </Container>
