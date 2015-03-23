@@ -4,6 +4,7 @@ var {style} = require('react-matterkit');
 
 var FakeHierarchy = require('./FakeHierarchy.jsx');
 var JVDemo = require('./JVDemo.jsx');
+var Toolbar = require('./Toolbar.jsx');
 
 // var cw = console.warn;
 // console.warn = function () {debugger;cw.apply(this, arguments);};
@@ -24,7 +25,7 @@ React.render(<Spaceman>
   <Container direction='row'>
     <Container size={4} direction='column'>
       <Block size={32} sizeMode='fix'>
-        <Tab id='toolbar' hideableHead={true}/>
+        <Tab id='toolbar' hideableHead={true}><Toolbar/></Tab>
       </Block>
       <Container>
         <Container direction='row'>
