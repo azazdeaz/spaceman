@@ -19,7 +19,7 @@ var Block = React.createClass({
 
       var error;
 
-      React.Children.forEach(child => {
+      React.Children.forEach(this.props.children, child => {
         if (child.type !== Tab) error = true;
       });
 
@@ -27,11 +27,32 @@ var Block = React.createClass({
     }
   },
 
+  noTabs() {
 
+    var childCount = React.Children.count(this.props.children);
+
+    if (childCount === 1) {
+
+      let noHead = false;
+
+      React.Children.forEach(this.props.children, child => {
+        noHead = child.props.hideableHead === true;
+      });
+
+      return noHead;
+    }
+  },
   render() {
+
+
 
     if (this.props.hole) {
       return <div/>;
+    }
+    else if (this.noTabs()) {
+      return <div>
+        {this.props.children}
+      </div>;
     }
     else {
       return <MatterTabs>

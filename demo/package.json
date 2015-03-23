@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "npm run prebuild && watchify src/index.jsx -t babelify --debug -o build/index.js",
     "prebuild": "rm -rf build && copyfiles -f src/index.html build",
     "build": "browserify src/index.jsx -t babelify --debug | exorcist build/index.js.map > build/index.js",
-    "dev": "watchify src/index.jsx -t babelify --debug -o build/index.js",
     "serve": "browser-sync start --server build --files 'build/**'"
   },
   "author": "",

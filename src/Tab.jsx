@@ -11,7 +11,9 @@ var Tab = React.createClass({
   },
 
   render() {
-    return <div label={this.props.label}>
+    return <div
+      style={{width: '100%', height: '100%'}}
+      label={this.props.label}>
       {this.props.children}
     </div>;
   }
