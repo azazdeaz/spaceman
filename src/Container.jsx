@@ -1,12 +1,8 @@
 var React = require('react');
 var SizeableMixin = require('./mixins/SizeableMixin');
 var merge = require('lodash.merge');
-var colors = require('colors.css');
-var getColor = () => {
-  var names = Object.keys(colors);
-  return colors[names[~~(Math.random()*names.length)]];
-};
-var {style} = require('react-matterkit');
+var { style } = require('react-matterkit');
+var { CustomDrag } = require('react-matterkit').utils;
 
 var Container = React.createClass({
 
@@ -15,6 +11,12 @@ var Container = React.createClass({
   getDefaultProps() {
     return {
       direction: 'row',
+    };
+  },
+
+  getInitialState() {
+    return {
+      childSizes: [],
     };
   },
 
@@ -49,23 +51,55 @@ var Container = React.createClass({
     setTimeout(()=>this.getDOMNode().addEventListener('click', () => console.log('qwwqwqwq')), 1234);
   },
 
+  _getFlexPerPx() {
+
+    var br = this.getDOMNode().getBoundingClientRect();
+    var fullPx = this.direction === 'row' ? br.width : br.height;
+    var fullFlex = 0;
+
+    this.props.children.forEach(function (child) {
+
+      if (child.scaleMode === 'fix') {
+
+        fullPx -= child.size;
+      }
+      else {
+        fullFlex += child.size;
+      }
+    });
+
+    return fullFlex / fullPx;
+  },
+
+  _onDragResizer(md) {
+
+    var move = this.props.direction === 'row' ? md.dx : md.dy;
+    var moveFlex = move * this._getFlexPerPx();
+    var prevChild = this._children[md.idx];
+    var nextChild = this._children[md.idx + 1];
+
+    prevChild.size = md.prevChildSize + (prevChild.scaleMode === 'fix' ? move : moveFlex);
+    nextChild.size = md.nextChildSize - (nextChild.scaleMode === 'fix' ? move : moveFlex);
+  },
+
   render() {
 
-//     var fullFlex = 0; fullFix = 0;
-//
-//     React.Children.map(this.props.children, child => {
-//
-//       var size = child.props.size;
-//       var sizeMode = child.props.sizeMode;
-//     });
-
     var children = React.Children.map(this.props.children, child => {
+
+      this.state.childSizes.push({
+        size: child.props.size,
+        sizeMode: child.props.sizeMode,
+      });
 
       var size = child.props.size;
       var sizeMode = child.props.sizeMode;
       var contStyle = this.getContainerStyle(size, sizeMode);
-// console.log(contStyle, size, sizeMode)
-      return <div style={contStyle} onClick={()=>console.log('containerCont')}>{child}</div>;
+      return <div
+        style={contStyle}
+        onClick={()=>console.log('containerCont')}>
+        {child}
+        <Resizer onDrag={this._onDragResizer}/>
+      </div>;
     });
 
     var s = {
@@ -81,6 +115,37 @@ var Container = React.createClass({
       {children}
 
     </div>;
+  }
+});
+
+
+
+
+
+
+
+var Resizer = React.createClass({
+
+  componentDidMount() {
+
+    new CustomDrag({
+      deTarget: this.getDOMNode(),
+      onDrag: this.props.onDrag,
+    })
+  },
+
+  render() {
+
+    var s = {
+      display: 'none',
+      position: 'absolute',
+      width: this.props.direction === 'row' ? 4 : '100%',
+      height: this.props.direction === 'row' ? '100%' : 4,
+      top: -2,
+      backgroundColor: style.palette.blue,
+    };
+
+    return <div style={s}/>;
   }
 });
 
