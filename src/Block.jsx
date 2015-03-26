@@ -55,7 +55,7 @@ var Block = React.createClass({
       </div>;
     }
     else {
-      return <MatterTabs>
+      return <MatterTabs style={{height: '100%'}}>
         {this.props.children}
       </MatterTabs>;
     }

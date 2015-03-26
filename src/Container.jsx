@@ -79,6 +79,7 @@ var Container = React.createClass({
 
     return <div style={s} onClick={()=>console.log('container')}>
       {children}
+
     </div>;
   }
 });
