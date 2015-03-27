@@ -21,31 +21,30 @@ var View = React.createClass({
   }
 });
 
-React.render(<Spaceman>
-  <Container direction='row'>
-    <Container size={4} direction='column'>
-      <Block size={32} sizeMode='fix'>
-        <Tab id='toolbar' hideableHead={true}><Toolbar/></Tab>
-      </Block>
-      <Container>
-        <Container direction='row'>
-          <Block size={1}>
-            <Tab id='history' label='history'><FakeHierarchy/></Tab>
-            <Tab id='project' label='project'>project</Tab>
-            <Tab id='color palette' label='color palette'>color</Tab>
-          </Block>
-          <Block size={2}>
-            <Tab id='View' label='View'>
-              <View/>
-            </Tab>
-          </Block>
-        </Container>
-      </Container>
-    </Container>
-    <Block size={2}>
-      <Tab id='Controlls Demo' label='Controlls Demo'><JVDemo/></Tab>
-      <Tab id='Behaviours' label='Behaviours'>behaviours</Tab>
-      <Tab id='Tree' label='Tree'>color</Tab>
-    </Block>
-  </Container>
-</Spaceman>, document.body);
+
+var structure = {type: 'container', direction: 'row', children: [
+  {type: 'container', direction: 'column', size: 4, children: [
+    {type: 'block', size: 32, sizeMode: 'fix', children: [
+      {type: 'tab', id: 'toolbar', hideableHead: true},
+    ]},
+    {type: 'container', children: [
+      {type: 'container', direction: 'row', children: [
+        {type: 'block', size: 1, children: [
+          {type: 'tab', id: 'history', label: 'History', content: 'History'},
+          {type: 'tab', id: 'project', label: 'Project', content: 'Project'},
+          {type: 'tab', id: 'color', label: 'Color', content: 'Color'},
+        ]},
+        {type: 'block', size: 1, children: [
+          {type: 'tab', id: 'view', label: 'View', content: <View/>},
+        ]},
+      ]}
+    ]},
+    {type: 'block', size: 2, children: [
+      {type: 'tab', id: 'controlls', label: 'Controlls Demo', content: <JVDemo/>},
+      {type: 'tab', id: 'behaviours', label: 'Behaviours', content: 'Behaviours'},
+      {type: 'tab', id: 'tree', label: 'Tree', content: 'Tree'},
+    ]}
+  ]}
+]};
+
+React.render(<Spaceman structure={structure}/>, document.body);

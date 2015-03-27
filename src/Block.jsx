@@ -10,53 +10,28 @@ var Block = React.createClass({
 
   getDefaultProps() {
     return {
-      hole: false,
     };
-  },
-
-  propsTypes: {
-    children: function(props) {
-
-      var error;
-
-      React.Children.forEach(this.props.children, child => {
-        if (child.type !== Tab) error = true;
-      });
-
-      if (error) return new Error('All the children of <Block> must be <Tab>!');
-    }
   },
 
   noTabs() {
 
-    var childCount = React.Children.count(this.props.children);
-
-    if (childCount === 1) {
-
-      let noHead = false;
-
-      React.Children.forEach(this.props.children, child => {
-        noHead = child.props.hideableHead === true;
-      });
-
-      return noHead;
-    }
+    return (this.props.data.children.length === 0 &&
+      this.props.data.children[0].hideableHead.val());
   },
+  
   render() {
-
-
 
     if (this.props.hole) {
       return <div/>;
     }
     else if (this.noTabs()) {
       return <div>
-        {this.props.children}
+        {this.props.build(this.props.data.children[0], 'tab')}
       </div>;
     }
     else {
       return <MatterTabs style={{height: '100%'}}>
-        {this.props.children}
+      {this.props.buildChildren(this.props.data.children, 'tab')}
       </MatterTabs>;
     }
   }

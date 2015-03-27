@@ -2,6 +2,13 @@ var React = require('react');
 var Container = require('./Container.jsx');
 var Block = require('./Block.jsx');
 var Tab = require('./Tab.jsx');
+var isArray = require('lodash.isArray');
+
+// var HELLO_WORLD = {type: 'container', children: [
+//   {type: 'block', children: [
+//     {type: 'tab', label: 'Hello World!', content: <h1>Hello World<h1/>},
+//   ]}
+// ]};
 
 var Spaceman = React.createClass({
 
@@ -11,36 +18,74 @@ var Spaceman = React.createClass({
     };
   },
 
+  getInitialState() {
+    return {
+      cortex: new Cortex({}, updatedCortex => {
+
+        this.setState({cortex: updatedCortex});
+
+        if (this.props.onChange) {
+          this.props.onChange();
+        }
+      }),
+    };
+  },
+
   componentWillReciveProps(nextProps) {
 
     if (typeof(nextProps.structure) === 'object') {
-      newProps.children = this.buildStructure(nextProps.structure);
-      nextProps.structure = undefined;
+
+      this.state.cortex.set(nextProps.structure);
     }
   },
 
-  setTabContent() {
+  setTabContent(id, content) {
 
-  },
+    var check = cortex => {
+      if (cortex.type.val() === 'tab' && cortex.id.val() === id) {
 
-  buildStructure(structure) {
+        tab.content.set(content);
 
-    var build = (p) => {
-
-      if (p.children instanceof Array) {
-        p.children = p.children.map(build);
+        return true;
       }
+      else if (cortex.children && isArray(cortex.children.val())) {
 
-      switch(p.type) {
-        case 'Container': return <Container {...p}/>;
-        case 'Block': return <Block {...p}/>;
-        case 'Tab': return <Tab {...p}/>;
-        default:
-          throw Error(`Unknown type: ${p.type}`);
+        return !!cortex.children.find(check);
       }
     };
 
-    return build(structure);
+    check(this.state.cortex);
+  },
+
+  _build(cortex, ...types) {
+
+    if (types.indexOf(structure.type) === -1) {
+
+      throw Error('unknown type: ' + structure.type);
+    }
+
+    var props = {
+      cortex,
+      build: this._build,
+      buildChildren: this._buildChildren,
+    };
+
+    switch (structure.type.val()) {
+      case 'container': return <Container {...props}/>;
+      case 'block': return <Block {...props}/>;
+      case 'tab': return <Tab {...props}/>;
+    }
+  },
+
+  _buildChildren(cortexes, ...types) {
+
+    if (isArray(cortexes)) {
+
+      return cortexes.map(cortex => this._build(cortex, ...types));
+    }
+    else {
+      throw Error;
+    }
   },
 
   setStructure(structure) {
@@ -53,8 +98,9 @@ var Spaceman = React.createClass({
 
 
   render() {
+
     return <div style={{width: '100%', height: '100%', position: 'relative'}}>
-      {this.props.children}
+      {this._build(this.state.cortex, 'container', 'block')}
     </div>;
   }
 });

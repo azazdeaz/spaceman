@@ -8,16 +8,17 @@ var Container = React.createClass({
 
   mixins: [SizeableMixin],
 
-  getDefaultProps() {
-    return {
-      direction: 'row',
-    };
-  },
-
   getInitialState() {
     return {
       childSizes: [],
     };
+  },
+
+  componentWillReciveProps(nextProps) {
+
+    var { cortex } = nextProps;
+
+    if (!cortex.direction) cortex.add('direction', 'row');
   },
 
   getContainerStyle(size, sizeMode) {
@@ -45,10 +46,6 @@ var Container = React.createClass({
       position: 'relative',
       // background: getColor(),
     };
-  },
-
-  componentDidMount() {
-    setTimeout(()=>this.getDOMNode().addEventListener('click', () => console.log('qwwqwqwq')), 1234);
   },
 
   _getFlexPerPx() {
@@ -84,20 +81,14 @@ var Container = React.createClass({
 
   render() {
 
-    var children = React.Children.map(this.props.children, child => {
+    var children = this.props.cortex.children.map(childCortex => {
 
-      this.state.childSizes.push({
-        size: child.props.size,
-        sizeMode: child.props.sizeMode,
-      });
-
-      var size = child.props.size;
-      var sizeMode = child.props.sizeMode;
+      var size = childCortex.size.val();
+      var sizeMode = childCortex.sizeMode.val();
       var contStyle = this.getContainerStyle(size, sizeMode);
-      return <div
-        style={contStyle}
-        onClick={()=>console.log('containerCont')}>
-        {child}
+
+      return <div style={contStyle}>
+        {this.props.build(child, 'container', 'block')}
         <Resizer onDrag={this._onDragResizer}/>
       </div>;
     });
@@ -111,9 +102,8 @@ var Container = React.createClass({
       background: style.grey.normal,
     };
 
-    return <div style={s} onClick={()=>console.log('container')}>
+    return <div style={s}>
       {children}
-
     </div>;
   }
 });
@@ -131,16 +121,15 @@ var Resizer = React.createClass({
     new CustomDrag({
       deTarget: this.getDOMNode(),
       onDrag: this.props.onDrag,
-    })
+    });
   },
 
   render() {
 
     var s = {
-      display: 'none',
       position: 'absolute',
-      width: this.props.direction === 'row' ? 4 : '100%',
-      height: this.props.direction === 'row' ? '100%' : 4,
+      width: this.props.cortex.direction` === 'row' ? 4 : '100%',
+      height: this.props.cortex.direction` === 'row' ? '100%' : 4,
       top: -2,
       backgroundColor: style.palette.blue,
     };
