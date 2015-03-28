@@ -23,7 +23,7 @@ var View = React.createClass({
 
 
 var structure = {type: 'container', direction: 'row', children: [
-  {type: 'container', direction: 'column', size: 4, children: [
+  {type: 'container', direction: 'column', size: 5, children: [
     {type: 'block', size: 32, sizeMode: 'fix', children: [
       {type: 'tab', id: 'toolbar', hideableHead: true},
     ]},
@@ -34,17 +34,17 @@ var structure = {type: 'container', direction: 'row', children: [
           {type: 'tab', id: 'project', label: 'Project', content: 'Project'},
           {type: 'tab', id: 'color', label: 'Color', content: 'Color'},
         ]},
-        {type: 'block', size: 1, children: [
+        {type: 'block', size: 2, children: [
           {type: 'tab', id: 'view', label: 'View', content: <View/>},
         ]},
       ]}
     ]},
-    {type: 'block', size: 2, children: [
-      {type: 'tab', id: 'controlls', label: 'Controlls Demo', content: <JVDemo/>},
-      {type: 'tab', id: 'behaviours', label: 'Behaviours', content: 'Behaviours'},
-      {type: 'tab', id: 'tree', label: 'Tree', content: 'Tree'},
-    ]}
+  ]},
+  {type: 'block', size: 2, children: [
+    {type: 'tab', id: 'controlls', label: 'Controlls Demo', content: <JVDemo/>},
+    {type: 'tab', id: 'behaviours', label: 'Behaviours', content: 'Behaviours'},
+    {type: 'tab', id: 'tree', label: 'Tree', content: 'Tree'},
   ]}
 ]};
 
-React.render(<Spaceman structure={structure}/>, document.body);
+React.render(<Spaceman defaultStructure={structure}/>, document.body);

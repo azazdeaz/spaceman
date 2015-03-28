@@ -20,6 +20,8 @@
   "author": "Polgár András",
   "license": "MIT",
   "dependencies": {
+    "lodash.has": "^3.0.0",
+    "lodash.isarray": "^3.0.1",
     "lodash.merge": "^3.0.3"
   },
   "devDependencies": {

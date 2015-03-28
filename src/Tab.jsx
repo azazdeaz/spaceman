@@ -13,8 +13,8 @@ var Tab = React.createClass({
   render() {
     return <div
       style={{width: '100%', height: '100%'}}
-      label={this.props.data.label.val()}>
-      {this.props.children}
+      label={this.props.label}>
+      {this.props.content}
     </div>;
   }
 });
