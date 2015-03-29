@@ -70,17 +70,19 @@ var Container = React.createClass({
     return fullFlex / fullPx;
   },
 
-  _onDragResizer(idx, md) {
+  _onDragResizer(md) {
 
     console.log('drag', md)
 
     var move = this.props.direction === 'row' ? md.dx : md.dy;
     var moveFlex = move * this._getFlexPerPx();
-    var prevChild = this.props.children[idx];
-    var nextChild = this.props.children[idx + 1];
+    var prevChild = this.props.children[md.idx - 1];
+    var nextChild = this.props.children[md.idx];
 
     prevChild.size = md.prevChildSize + (prevChild.scaleMode === 'fix' ? move : moveFlex);
     nextChild.size = md.nextChildSize - (nextChild.scaleMode === 'fix' ? move : moveFlex);
+    console.log('prev', md.prevChildSize, move, moveFlex, prevChild.size);
+    console.log('next', md.nextChildSize, move, moveFlex, nextChild.size);
   },
 
   render() {
@@ -96,8 +98,14 @@ var Container = React.createClass({
         var contStyle = this.getContainerStyle(size, sizeMode);
         var resizer;
 
-        if (idx !== 0) {
-          resizer = <Resizer onDrag={this._onDragResizer.bind(this, idx)}/>;
+        if (idx > 0) {
+          resizer = <Resizer
+            onDown={() => ({
+              idx,
+              prevChildSize: this.props.children[idx-1].size,
+              nextChildSize: this.props.children[idx].size,
+            })}
+            onDrag={this._onDragResizer.bind(this)}/>;
         }
 
         return <div style={contStyle} key={idx}>
@@ -134,6 +142,7 @@ var Resizer = React.createClass({
 
     new CustomDrag({
       deTarget: this.getDOMNode(),
+      onDown: this.props.onDown,
       onDrag: this.props.onDrag,
     });
   },
