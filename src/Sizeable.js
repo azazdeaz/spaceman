@@ -64,6 +64,6 @@ export default class Sizeable {
     this._reportChange();
   }
   get sizeMode() {
-    return  this._size;
+    return  this._sizeMode;
   }
 }

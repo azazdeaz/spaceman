@@ -1,7 +1,6 @@
 var React = require('react');
 var Divider = require('./Divider');
 var Block = require('./Block');
-var {build} = require('./model/model');
 var isArray = require('lodash.isarray');
 var has = require('lodash.has');
 var merge = require('lodash.merge');

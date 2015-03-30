@@ -62,7 +62,7 @@ class Divider extends Sizeable {
 var DividerComp = React.createClass({
 
   getContainerStyle(size, sizeMode) {
-
+console.log('getContainerStyle', size, sizeMode)
     var flex, width = '100%', height = '100%';
 
     if (sizeMode === 'fix') {
