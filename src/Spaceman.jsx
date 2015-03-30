@@ -1,13 +1,15 @@
 var React = require('react');
-var Container = require('./Container.jsx');
-var Block = require('./Block.jsx');
-var Tab = require('./Tab.jsx');
-var Editable = require('./Editable');
+var Divider = require('./Divider');
+var Block = require('./Block');
+var {build} = require('./model/model');
 var isArray = require('lodash.isarray');
 var has = require('lodash.has');
 var merge = require('lodash.merge');
 
-// var HELLO_WORLD = {type: 'container', children: [
+import Divider from './Divider';
+import Block from './Block';
+
+// var HELLO_WORLD = {type: 'divider', children: [
 //   {type: 'block', children: [
 //     {type: 'tab', label: 'Hello World!', content: <h1>Hello World<h1/>},
 //   ]}
@@ -15,42 +17,32 @@ var merge = require('lodash.merge');
 
 var Spaceman = React.createClass({
 
-  getDefaultProps() {
-    return {
-      hideableHeader: false,
-    };
-  },
-
   getInitialState() {
-    return {
-      editor: new Editable(this._onChange),
-      structure: this.props.defaultStructure || {type: 'container'},
-    };
+
+    var structure = this.props.defaultStructure || {type: 'divider'};
+
+    return { model: this._makeModel(structure) };
   },
-
-  // childContextTypes: {
-  //   editable: React.PropTypes.func.isRequired,
-  // },
-
-  // getChildContext() {
-  //   return { editable: this.state.editable };
-  // },
 
   componentWillReceiveProps(nextProps) {
 
     if (typeof(nextProps.defaultStructure) === 'object') {
 
-      this.setState({structure: nextProps.defaultStructure});
+      let structure  = nextProps.defaultStructure;
+      this.setState({ model: this._makeModel(structure) });
     }
   },
 
-  _onChange(structure) {
+  _makeModel(structure) {
 
-    this.setState(this.state.structure);
+    var model;
+    if (structure.type === 'divider') model = new Divider(structure);
+    else if (structure.type === 'block') model = new Block(structure);
+    else throw Error;
 
-    if (this.props.onChange) {
-      this.props.onChange(this.state.structure);
-    }
+    model.onChange = () => this.setState({ model });
+
+    return model;
   },
 
   setTabContent(id, content) {
@@ -71,35 +63,6 @@ var Spaceman = React.createClass({
     check(this.state.structure);
   },
 
-  _build(item, key, ...types) {
-
-    if (!item) return;
-
-    if (types.indexOf(item.type) === -1) {
-
-      throw Error('unknown type: ' + item.type);
-    }
-
-    var props = merge(this.state.editor.editable(item), {
-      key,
-      build: this._build,
-      buildChildren: this._buildChildren,
-    });
-
-    switch (item.type) {
-      case 'container': return <Container {...props}/>;
-      case 'block': return <Block {...props}/>;
-      case 'tab': return <Tab {...props}/>;
-    }
-  },
-
-  _buildChildren(items, ...types) {
-
-    if (!isArray(items)) return;
-
-    return items.map((item, idx) => this._build(item, idx, ...types));
-  },
-
   setStructure(structure) {
     this.setState({structure});
   },
@@ -111,7 +74,7 @@ var Spaceman = React.createClass({
 
   render() {
     return <div style={{width: '100%', height: '100%', position: 'relative'}}>
-      {this._build(this.state.structure, 'root', 'container', 'block')}
+      {this.state.model.getComponent()}
     </div>;
   }
 });

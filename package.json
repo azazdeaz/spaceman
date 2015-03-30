@@ -22,7 +22,10 @@
   "dependencies": {
     "lodash.has": "^3.0.0",
     "lodash.isarray": "^3.0.1",
-    "lodash.merge": "^3.0.3"
+    "lodash.merge": "^3.0.3",
+    "lodash.pull": "^3.0.1",
+    "lodash.isnumber": "^3.0.1",
+    "eventman": "git://github.com/azazdeaz/eventman"
   },
   "devDependencies": {
     "babel": "^4.7.13"

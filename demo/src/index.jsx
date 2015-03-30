@@ -1,5 +1,5 @@
 var React = require('react');
-var {Spaceman, Tab, Block, Container} = require('../../src/index');
+var {Spaceman, Tab, Block, Divider} = require('../../src/index');
 var {style} = require('react-matterkit');
 
 var FakeHierarchy = require('./FakeHierarchy.jsx');
@@ -22,13 +22,13 @@ var View = React.createClass({
 });
 
 
-var structure = {type: 'container', direction: 'row', children: [
-  {type: 'container', direction: 'column', size: 5, children: [
+var structure = {type: 'divider', direction: 'row', children: [
+  {type: 'divider', direction: 'column', size: 5, children: [
     {type: 'block', size: 32, sizeMode: 'fix', children: [
       {type: 'tab', id: 'toolbar', hideableHead: true},
     ]},
-    {type: 'container', children: [
-      {type: 'container', direction: 'row', children: [
+    {type: 'divider', children: [
+      {type: 'divider', direction: 'row', children: [
         {type: 'block', size: 1, children: [
           {type: 'tab', id: 'history', label: 'History', content: 'History'},
           {type: 'tab', id: 'project', label: 'Project', content: 'Project'},
@@ -47,4 +47,5 @@ var structure = {type: 'container', direction: 'row', children: [
   ]}
 ]};
 
-React.render(<Spaceman defaultStructure={structure}/>, document.body);
+React.render(<Spaceman defaultStructure={structure}/>,
+  document.querySelector('#root'));
