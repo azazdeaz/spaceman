@@ -37,13 +37,13 @@ class Divider extends Sizeable {
 
     console.log('drag', md);
 
-    var move = this.props.direction === 'row' ? md.dx : md.dy;
-    var moveFlex = move * this._getFlexPerPx();
-    var prevChild = this.props.children[md.idx - 1];
-    var nextChild = this.props.children[md.idx];
+    var move = this.direction === 'row' ? md.dx : md.dy;
+    var moveFlex = move * md.flexPerPx;
+    var prevChild = this.children[md.idx - 1];
+    var nextChild = this.children[md.idx];
 
-    prevChild.size = md.prevChildSize + (prevChild.scaleMode === 'fix' ? move : moveFlex);
-    nextChild.size = md.nextChildSize - (nextChild.scaleMode === 'fix' ? move : moveFlex);
+    prevChild.size = md.prevChildSize + (prevChild.sizeMode === 'fix' ? move : moveFlex);
+    nextChild.size = md.nextChildSize - (nextChild.sizeMode === 'fix' ? move : moveFlex);
     console.log('prev', md.prevChildSize, move, moveFlex, prevChild.size);
     console.log('next', md.nextChildSize, move, moveFlex, nextChild.size);
   }
@@ -62,7 +62,7 @@ class Divider extends Sizeable {
 var DividerComp = React.createClass({
 
   getContainerStyle(size, sizeMode) {
-console.log('getContainerStyle', size, sizeMode)
+    
     var flex, width = '100%', height = '100%';
 
     if (sizeMode === 'fix') {
@@ -96,7 +96,7 @@ console.log('getContainerStyle', size, sizeMode)
 
     this.props.children.forEach(function (child) {
 
-      if (child.scaleMode === 'fix') {
+      if (child.sizeMode === 'fix') {
 
         fullPx -= child.size;
       }
@@ -110,11 +110,12 @@ console.log('getContainerStyle', size, sizeMode)
 
   render() {
 
-    var prevChildSize;
+    var _prevChildSize;
     var children = React.Children.map(this.props.children, (child, idx) => {
 
       var size = child.props.size;
       var sizeMode = child.props.sizeMode;
+      var prevChildSize = _prevChildSize;
       var contStyle = this.getContainerStyle(size, sizeMode);
       var resizer;
 
@@ -129,7 +130,7 @@ console.log('getContainerStyle', size, sizeMode)
           onDrag={md => this.props.onDragResizer(md)}/>;
       }
 
-      prevChildSize = size;
+      _prevChildSize = size;
 
       return <div style={contStyle} key={idx}>
         {child}
