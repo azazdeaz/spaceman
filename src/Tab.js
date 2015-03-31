@@ -5,6 +5,7 @@ export default class Tab {
 
   constructor (opt) {
 
+    this.id = has(opt, 'id') ? opt.id : {};
     this.label = has(opt, 'label') ? opt.label: 'Tab';
     this.content = has(opt, 'content') ? opt.content: '';
     this.hideableHead = has(opt, 'hideableHead') ? opt.hideableHead: false;
@@ -17,6 +18,10 @@ export default class Tab {
   _reportChange() {
 
     if (this.onChange) this.onChange();
+  }
+
+  get type() {
+    return 'tab';
   }
 
   set label(v) {

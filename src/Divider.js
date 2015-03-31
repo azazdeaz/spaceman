@@ -21,6 +21,10 @@ class Divider extends Sizeable {
 
   }
 
+  get type() {
+    return 'divider';
+  }
+
   set direction(v) {
     if (v !== 'row' && v !== 'column') throw Error;
     if (v === this._direction) return;

@@ -1,6 +1,7 @@
 var React = require('react');
-var {Spaceman, Tab, Block, Divider} = require('../../src/index');
+var Spaceman = require('../../');
 var {style} = require('react-matterkit');
+var JsonVision = require('json-vision');
 
 var FakeHierarchy = require('./FakeHierarchy.jsx');
 var JVDemo = require('./JVDemo.jsx');
@@ -11,15 +12,11 @@ var Toolbar = require('./Toolbar.jsx');
 
 // React.render(<div>allo</div>, document.body);
 
-var View = React.createClass({
-  render() {
-    return <div style={{
-      width:'100%',
-      height:'100%',
-      backgroundColor: style.palette.purple,
-    }}/>;
-  }
-});
+var view = <div style={{
+  width:'100%',
+  height:'100%',
+  backgroundColor: style.palette.purple,
+}}>view</div>;
 
 
 var structure = {type: 'divider', direction: 'row', children: [
@@ -30,12 +27,12 @@ var structure = {type: 'divider', direction: 'row', children: [
     {type: 'divider', children: [
       {type: 'divider', direction: 'row', children: [
         {type: 'block', size: 1, children: [
-          {type: 'tab', id: 'history', label: 'History', content: 'History'},
+          {type: 'tab', id: 'model', label: 'Model'},
           {type: 'tab', id: 'project', label: 'Project', content: 'Project'},
           {type: 'tab', id: 'color', label: 'Color', content: 'Color'},
         ]},
         {type: 'block', size: 2, children: [
-          {type: 'tab', id: 'view', label: 'View', content: <View/>},
+          {type: 'tab', id: 'view', label: 'View', content: view},
         ]},
       ]}
     ]},
@@ -47,5 +44,24 @@ var structure = {type: 'divider', direction: 'row', children: [
   ]}
 ]};
 
-React.render(<Spaceman defaultStructure={structure}/>,
-  document.querySelector('#root'));
+var spaceman = React.render(<Spaceman defaultStructure={structure}/>,
+  document.querySelector('#react-mount'));
+
+
+var editor = <JsonVision
+  title='Model'
+  value={spaceman.getModel()}
+  settings={[{
+    select: '.baz.foo',
+    baseColor   : 'red',
+    options: ['tex', 'mex', 'bar', 'max'],
+  }]}/>;
+
+var Baz = React.createClass({
+  render() {
+    return editor;
+  }
+});
+
+spaceman.setTabContent('model', <Baz/>);
+// spaceman.setTabContent('controlls', <JVDemo/>);

@@ -15,6 +15,10 @@ export default class Block extends Sizeable {
     super(opt);
   }
 
+  get type() {
+    return 'block';
+  }
+
   set direction(v) {
     if (v !== 'row' || v !== 'column') throw Error;
     if (v === this._direction) return;
