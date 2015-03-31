@@ -35,8 +35,6 @@ class Divider extends Sizeable {
 
   _onDragResizer(md) {
 
-    console.log('drag', md);
-
     var move = this.direction === 'row' ? md.dx : md.dy;
     var moveFlex = move * md.flexPerPx;
     var prevChild = this.children[md.idx - 1];
@@ -44,16 +42,17 @@ class Divider extends Sizeable {
 
     prevChild.size = md.prevChildSize + (prevChild.sizeMode === 'fix' ? move : moveFlex);
     nextChild.size = md.nextChildSize - (nextChild.sizeMode === 'fix' ? move : moveFlex);
-    console.log('prev', md.prevChildSize, move, moveFlex, prevChild.size);
-    console.log('next', md.nextChildSize, move, moveFlex, nextChild.size);
+    this._reportChange();
   }
 
   getComponent() {
     return <DividerComp
       size={this.size}
       sizeMode={this.sizeMode}
+      resizeable={this.resizeable}
       direction={this.direction}
-      onDragResizer={md => this._onDragResizer(md)}>
+      onDragResizer={md => this._onDragResizer(md)}
+      childModels={this.children}>
       {this.children.map(child => child.getComponent())}
     </DividerComp>;
   }
@@ -62,7 +61,7 @@ class Divider extends Sizeable {
 var DividerComp = React.createClass({
 
   getContainerStyle(size, sizeMode) {
-    
+
     var flex, width = '100%', height = '100%';
 
     if (sizeMode === 'fix') {
@@ -94,7 +93,7 @@ var DividerComp = React.createClass({
     var fullPx = this.props.direction === 'row' ? br.width : br.height;
     var fullFlex = 0;
 
-    this.props.children.forEach(function (child) {
+    this.props.childModels.forEach(function (child) {
 
       if (child.sizeMode === 'fix') {
 
@@ -110,16 +109,18 @@ var DividerComp = React.createClass({
 
   render() {
 
-    var _prevChildSize;
+    var _prevChild;
     var children = React.Children.map(this.props.children, (child, idx) => {
 
       var size = child.props.size;
       var sizeMode = child.props.sizeMode;
-      var prevChildSize = _prevChildSize;
       var contStyle = this.getContainerStyle(size, sizeMode);
       var resizer;
 
-      if (idx > 0) {
+      if (idx > 0 && child.props.resizeable &&  _prevChild.props.resizeable) {
+
+        let prevChildSize = _prevChild.size;
+
         resizer = <ResizerComp
           onDown={() => ({
             idx,
@@ -127,10 +128,11 @@ var DividerComp = React.createClass({
             prevChildSize: prevChildSize,
             nextChildSize: size,
           })}
+          direction={this.props.direction}
           onDrag={md => this.props.onDragResizer(md)}/>;
       }
 
-      _prevChildSize = size;
+      _prevChild = child;
 
       return <div style={contStyle} key={idx}>
         {child}
@@ -161,12 +163,23 @@ var DividerComp = React.createClass({
 
 var ResizerComp = React.createClass({
 
+  getInitialState() {
+    return {
+      hover: false,
+      dragging: false,
+    };
+  },
+
   componentDidMount() {
 
     new CustomDrag({
       deTarget: this.getDOMNode(),
-      onDown: this.props.onDown,
+      onDown: () => {
+        this.setState({dragging: true});
+        return this.props.onDown();
+      },
       onDrag: this.props.onDrag,
+      onUp: () => this.setState({dragging: false}),
     });
   },
 
@@ -174,13 +187,31 @@ var ResizerComp = React.createClass({
 
     var s = {
       position: 'absolute',
-      width: this.props.direction === 'row' ? 4 : '100%',
-      height: this.props.direction === 'row' ? '100%' : 4,
-      top: -2,
       backgroundColor: style.palette.blue,
+      cursor: 'pointer',
+      opacity: this.state.hover || this.state.dragging ? 1 : 0,
     };
 
-    return <div style={s}/>;
+    if (this.props.direction === 'column'){
+      merge(s, {
+        width: '100%',
+        height: 4,
+        top: -2,
+      });
+    }
+    else {
+      merge(s, {
+        width: 4,
+        height: '100%',
+        top: 0,
+        left: -2,
+      });
+    }
+
+    return <div style={s}
+      onMouseEnter={() => this.setState({hover: true})}
+      onMouseLeave={() => this.setState({hover: false})}
+    />;
   }
 });
 

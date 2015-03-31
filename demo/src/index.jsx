@@ -24,7 +24,7 @@ var View = React.createClass({
 
 var structure = {type: 'divider', direction: 'row', children: [
   {type: 'divider', direction: 'column', size: 5, children: [
-    {type: 'block', size: 32, sizeMode: 'fix', children: [
+    {type: 'block', size: 32, sizeMode: 'fix', resizeable: false, children: [
       {type: 'tab', id: 'toolbar', hideableHead: true},
     ]},
     {type: 'divider', children: [

@@ -28,7 +28,8 @@ export default class Block extends Sizeable {
   getComponent() {
     return <BlockComp
       size={this.size}
-      sizeMode={this.sizeMode}>
+      sizeMode={this.sizeMode}
+      resizeable={this.resizeable}>
       {this.children.map(child => child.getComponent())}
     </BlockComp>;
   }

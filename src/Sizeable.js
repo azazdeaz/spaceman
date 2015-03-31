@@ -2,7 +2,6 @@ import isNumber from 'lodash.isnumber';
 import merge from 'lodash.merge';
 import pull from 'lodash.pull';
 import has from 'lodash.has';
-import Eventman from 'eventman';
 
 export default class Sizeable {
 
@@ -10,6 +9,7 @@ export default class Sizeable {
 
     this.size = has(opt, 'size') ? opt.size : 1;
     this.sizeMode = has(opt, 'sizeMode') ? opt.sizeMode : 'flex';
+    this.resizeable = has(opt, 'resizeable') ? opt.resizeable : true;
 
     this.childTypes = this.childTypes || opt.childTypes || {};
     this.children = [];
@@ -22,6 +22,7 @@ export default class Sizeable {
 
     if (!has(this.childTypes, child.type)) throw Error;
 
+    child = merge({onChange: () => this._reportChange()}, child);
     var item = new this.childTypes[child.type](child);
 
     if (idx === undefined) {
@@ -65,5 +66,15 @@ export default class Sizeable {
   }
   get sizeMode() {
     return  this._sizeMode;
+  }
+
+  set resizeable(v) {
+    v = !!v;
+    if (v === this._resizeable) return;
+    this._resizeable = v;
+    this._reportChange();
+  }
+  get resizeable() {
+    return  this._resizeable;
   }
 }
