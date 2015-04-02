@@ -1,4 +1,5 @@
-var React = require('react');
+var React = require('react/addons');
+var { PureRenderMixin } = React.addons;
 var Spaceman = require('../../');
 var {style} = require('react-matterkit');
 var JsonVision = require('json-vision');
@@ -29,7 +30,7 @@ var structure = {type: 'divider', direction: 'row', children: [
         {type: 'block', size: 1, children: [
           {type: 'tab', id: 'model', label: 'Model'},
           {type: 'tab', id: 'project', label: 'Project', content: 'Project'},
-          {type: 'tab', id: 'color', label: 'Color', content: 'Color'},
+          {type: 'tab', id: 'color', label: 'Colors', content: 'Color'},
         ]},
         {type: 'block', size: 2, children: [
           {type: 'tab', id: 'view', label: 'View', content: view},
@@ -58,6 +59,7 @@ var editor = <JsonVision
   }]}/>;
 
 var Baz = React.createClass({
+  mixins: [PureRenderMixin],
   render() {
     return editor;
   }

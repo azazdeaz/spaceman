@@ -1,4 +1,5 @@
-var React = require('react');
+var React = require('react/addons');
+var { PureRenderMixin } = React.addons;
 var JsonVision = require('json-vision');
 
 var value = {
@@ -78,6 +79,7 @@ var settings = [
 
 
 module.exports = React.createClass({
+  mixins: [PureRenderMixin],
   render() {
     return <JsonVision settings={settings} value={value}/>;
   }
