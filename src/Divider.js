@@ -10,7 +10,7 @@ import Block from './Block';
 
 class Divider extends Sizeable {
 
-  constructor (opt) {
+  constructor (opt = {}) {
     this.direction = has(opt, 'direction') ? opt.direction : 'row';
     this.childTypes = {
       divider: Divider,

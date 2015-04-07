@@ -3,7 +3,7 @@ import has from 'lodash.has';
 
 export default class Tab {
 
-  constructor (opt) {
+  constructor (opt = {}) {
 
     this.id = has(opt, 'id') ? opt.id : {};
     this.label = has(opt, 'label') ? opt.label: 'Tab';

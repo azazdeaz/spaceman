@@ -6,10 +6,12 @@ var {Tabs: MatterTabs} = require('react-matterkit');
 import Sizeable from './Sizeable';
 import Tab from './Tab';
 
+var test = Math.random();
+
 export default class Block extends Sizeable {
 
-  constructor (opt) {
-
+  constructor (opt = {}) {
+    this.test = test;
     this.childTypes = {tab: Tab};
 
     super(opt);

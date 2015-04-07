@@ -5,8 +5,8 @@ var isArray = require('lodash.isarray');
 var has = require('lodash.has');
 var merge = require('lodash.merge');
 
-import Divider from './Divider';
-import Block from './Block';
+var Divider require('./Divider');
+var Block require('./Block');
 
 // var HELLO_WORLD = {type: 'divider', children: [
 //   {type: 'block', children: [
