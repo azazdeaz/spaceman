@@ -2,41 +2,31 @@ var React = require('react');
 var merge = require('lodash.merge');
 var isArray = require('lodash.isarray');
 var {Tabs: MatterTabs} = require('react-matterkit');
+import enumerable from './enumerable';
 
 import Sizeable from './Sizeable';
 import Tab from './Tab';
 
-var test = Math.random();
-
 export default class Block extends Sizeable {
 
   constructor (opt = {}) {
-    this.test = test;
-    this.childTypes = {tab: Tab};
 
-    super(opt);
+    super(merge({
+      childTypes: {tab: Tab},
+    }, opt));
   }
 
   get type() {
     return 'block';
   }
 
-  set direction(v) {
-    if (v !== 'row' || v !== 'column') throw Error;
-    if (v === this._direction) return;
-    this._direction = v;
-    this._reportChange();
-  }
-  get direction() {
-    return  this._direction;
-  }
-
-  getComponent() {
+  getComponent(key) {
     return <BlockComp
+      key={key}
       size={this.size}
       sizeMode={this.sizeMode}
       resizeable={this.resizeable}>
-      {this.children.map(child => child.getComponent())}
+      {this.children.map((child, idx) => child.getComponent(idx))}
     </BlockComp>;
   }
 }

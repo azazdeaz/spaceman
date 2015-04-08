@@ -1,9 +1,6 @@
 var React = require('react/addons');
 var { PureRenderMixin } = React.addons;
 var Spaceman = require('../../');
-var Block = require('../../lib/Block');
-var Tab = require('../../lib/Tab');
-var Divider = require('../../lib/Divider');
 var {style} = require('react-matterkit');
 var JsonVision = require('json-vision');
 
@@ -11,6 +8,7 @@ var FakeHierarchy = require('./FakeHierarchy.jsx');
 var JVDemo = require('./JVDemo.jsx');
 var Toolbar = require('./Toolbar.jsx');
 var Test = require('./Test.jsx');
+var createEditor = require('./createEditor');
 
 // var cw = console.warn;
 // console.warn = function () {debugger;cw.apply(this, arguments);};
@@ -53,38 +51,6 @@ var spaceman = React.render(<Spaceman defaultStructure={structure}/>,
   document.querySelector('#react-mount'));
 
 
-var editor = <JsonVision
-  title='Model'
-  value={{model: spaceman.getModel()}}
-  settings={[
-    {
-      selector: {instanceOf: Block},
-      children() {return this.val().children;},
-      label: 'Block',
-      buttons: [{
-        icon: 'plus',
-        onClick() {
-          this.val().addChild({type: 'tab'});
-        }
-      }]
-    }, {
-      selector: {instanceOf: Divider},
-      children() {return this.val().children;},
-      label: 'Divider',
-    }, {
-      selector: {instanceOf: Tab},
-      children: null,
-      label: 'Tab',
-    },
-  ]}/>;
-
-var Baz = React.createClass({
-  mixins: [PureRenderMixin],
-  render() {
-    return editor;
-  }
-});
-
-spaceman.setTabContent('model', <Baz/>);
+spaceman.setTabContent('model', createEditor(spaceman));
 // spaceman.setTabContent('model', <Test/>);
 // spaceman.setTabContent('controlls', <JVDemo/>);

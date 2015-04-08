@@ -5,14 +5,9 @@ var isArray = require('lodash.isarray');
 var has = require('lodash.has');
 var merge = require('lodash.merge');
 
-var Divider require('./Divider');
-var Block require('./Block');
+var Divider = require('./Divider');
+var Block = require('./Block');
 
-// var HELLO_WORLD = {type: 'divider', children: [
-//   {type: 'block', children: [
-//     {type: 'tab', label: 'Hello World!', content: <h1>Hello World<h1/>},
-//   ]}
-// ]};
 
 var Spaceman = React.createClass({
 
@@ -80,7 +75,7 @@ var Spaceman = React.createClass({
 
   render() {
     return <div style={{width: '100%', height: '100%', position: 'relative'}}>
-      {this.state.model.getComponent()}
+      {this.state.model.getComponent('root')}
     </div>;
   }
 });

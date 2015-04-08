@@ -1,7 +1,8 @@
-import isNumber from 'lodash.isnumber';
-import merge from 'lodash.merge';
-import pull from 'lodash.pull';
-import has from 'lodash.has';
+import isNumber from 'lodash/lang/isNumber';
+import merge from 'lodash/object/merge';
+import pull from 'lodash/array/pull';
+import has from 'lodash/object/has';
+import enumerable from './enumerable';
 
 export default class Sizeable {
 
@@ -11,7 +12,7 @@ export default class Sizeable {
     this.sizeMode = has(opt, 'sizeMode') ? opt.sizeMode : 'flex';
     this.resizeable = has(opt, 'resizeable') ? opt.resizeable : true;
 
-    this.childTypes = this.childTypes || opt.childTypes || {};
+    this.childTypes = opt.childTypes;
     this.children = [];
     if (opt.children) opt.children.forEach(child => this.addChild(child));
 
@@ -48,6 +49,7 @@ export default class Sizeable {
     if (this.onChange) this.onChange();
   }
 
+  @enumerable
   set size(v) {
     if (!isNumber(v)) throw Error;
     if (v === this._size) return;
@@ -58,6 +60,7 @@ export default class Sizeable {
     return  this._size;
   }
 
+  @enumerable
   set sizeMode(v) {
     if (v !== 'flex' && v !== 'fix') throw Error;
     if (v === this._sizeMode) return;
@@ -68,6 +71,7 @@ export default class Sizeable {
     return  this._sizeMode;
   }
 
+  @enumerable
   set resizeable(v) {
     v = !!v;
     if (v === this._resizeable) return;

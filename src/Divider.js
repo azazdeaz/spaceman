@@ -4,6 +4,7 @@ var has = require('lodash.has');
 var isArray = require('lodash.isarray');
 var { style } = require('react-matterkit');
 var { CustomDrag } = require('react-matterkit').utils;
+import enumerable from './enumerable';
 
 import Sizeable from './Sizeable';
 import Block from './Block';
@@ -11,20 +12,22 @@ import Block from './Block';
 class Divider extends Sizeable {
 
   constructor (opt = {}) {
+
+    super(merge({
+      childTypes: {
+        divider: Divider,
+        block: Block,
+      },
+    }, opt));
+
     this.direction = has(opt, 'direction') ? opt.direction : 'row';
-    this.childTypes = {
-      divider: Divider,
-      block: Block,
-    };
-
-    super(opt);
-
   }
 
   get type() {
     return 'divider';
   }
 
+  @enumerable
   set direction(v) {
     if (v !== 'row' && v !== 'column') throw Error;
     if (v === this._direction) return;
@@ -49,15 +52,16 @@ class Divider extends Sizeable {
     this._reportChange();
   }
 
-  getComponent() {
+  getComponent(key) {
     return <DividerComp
+      key={key}
       size={this.size}
       sizeMode={this.sizeMode}
       resizeable={this.resizeable}
       direction={this.direction}
       onDragResizer={md => this._onDragResizer(md)}
       childModels={this.children}>
-      {this.children.map(child => child.getComponent())}
+      {this.children.map((child, idx) => child.getComponent(idx))}
     </DividerComp>;
   }
 }

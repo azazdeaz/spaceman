@@ -4,9 +4,9 @@
   "description": "react workspace - layout - manager",
   "main": "lib/Spaceman.js",
   "scripts": {
-    "dev": "babel src --out-dir lib --watch",
+    "dev": "babel src --stage 0 --out-dir lib --watch",
     "prebuild": "rm -rf lib && rm -rf browser && mkdir browser",
-    "build:lib": "babel src --out-dir lib",
+    "build:lib": "babel src --experimental --out-dir lib",
     "build:browser": "browserify lib/Spaceman.js --standalone spaceman --debug | exorcist browser/spaceman.js.map > browser/spaceman.js",
     "build": "npm run build:lib && npm run build:browser",
     "prepublish": "npm run build"
@@ -28,6 +28,6 @@
     "eventman": "git://github.com/azazdeaz/eventman"
   },
   "devDependencies": {
-    "babel": "^4.7.13"
+    "babel": "^5.0.10"
   }
 }
