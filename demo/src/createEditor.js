@@ -62,7 +62,7 @@ export default function (spaceman) {
             buttons: [{
               icon: 'plus',
               onClick() {
-                this.val().addChild({type: 'tab'});
+                this.value.addChild({type: 'tab'});
               }
             }]
           }, {

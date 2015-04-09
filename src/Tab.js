@@ -73,23 +73,27 @@ var TabComp = React.createClass({
 
   render() {
 
-    var {content} = this.props;
-    var child = isElement(content) ? <DeWrapper de={content}/> : content;
-
     return <div
       style={{width: '100%', height: '100%'}}
       label={this.props.label}>
-      {child}
+
+      <DeWrapper content={this.props.content}/>
     </div>;
   }
 });
 
 var DeWrapper = React.createClass({
   componentDidMount() {
-    this.getDOMNode().appendChild(this.props.de);
+    if (isElement(this.props.content)) {
+      this.getDOMNode().appendChild(this.props.content);
+    }
+  },
+  shouldComponentUpdate() {
+    return false;
   },
   render() {
-    return <div/>;
+    var {content} = this.props;
+    return React.isValidElement(content) ? content : <div/>
   }
 });
 
