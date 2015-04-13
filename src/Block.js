@@ -1,6 +1,6 @@
 var React = require('react');
-var merge = require('lodash.merge');
-var isArray = require('lodash.isarray');
+var merge = require('lodash/object/merge');
+var isArray = require('lodash/lang/isArray');
 var {Tabs: MatterTabs} = require('react-matterkit');
 import enumerable from './enumerable';
 
@@ -21,6 +21,7 @@ export default class Block extends Sizeable {
   }
 
   getComponent(key) {
+
     return <BlockComp
       key={key}
       size={this.size}

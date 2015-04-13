@@ -1,12 +1,10 @@
 var React = require('react');
-var Divider = require('./Divider');
-var Block = require('./Block');
-var isArray = require('lodash.isarray');
-var has = require('lodash.has');
-var merge = require('lodash.merge');
+var isArray = require('lodash/lang/isArray');
+var has = require('lodash/object/has');
+var merge = require('lodash/object/merge');
 
-var Divider = require('./Divider');
-var Block = require('./Block');
+import Divider from './Divider';
+import Block from './Block';
 
 
 var Spaceman = React.createClass({
@@ -71,7 +69,7 @@ var Spaceman = React.createClass({
       return React.render(<Spaceman {...props}/>, mount);
     }
   },
-  
+
   render() {
     return <div style={{width: '100%', height: '100%', position: 'relative'}}>
       {this.state.model.getComponent('root')}

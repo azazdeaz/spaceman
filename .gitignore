@@ -2,3 +2,4 @@ browser
 lib
 node_modules
 *.log
+build

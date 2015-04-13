@@ -9,7 +9,7 @@
     "build:lib": "babel src --stage 0 --out-dir lib",
     "build:browser": "browserify lib/Spaceman.js --standalone spaceman --debug | exorcist browser/spaceman.js.map > browser/spaceman.js",
     "build": "npm run build:lib && npm run build:browser",
-    "prepublish": "npm run build"
+    "_prepublish": "npm run build"
   },
   "keywords": [
     "layout",
@@ -20,14 +20,26 @@
   "author": "Polgár András",
   "license": "MIT",
   "dependencies": {
-    "lodash.has": "^3.0.0",
-    "lodash.isarray": "^3.0.1",
-    "lodash.merge": "^3.0.3",
-    "lodash.pull": "^3.0.1",
-    "lodash.isnumber": "^3.0.1",
-    "eventman": "git://github.com/azazdeaz/eventman"
+    "eventman": "git://github.com/azazdeaz/eventman",
+    "lodash": "^3.6.0"
   },
   "devDependencies": {
-    "babel": "^5.0.10"
+    "babel": "^5.0.10",
+    "babelify": "^6.0.2",
+    "browser-sync": "^2.6.1",
+    "browserify": "^9.0.8",
+    "gulp": "^3.8.11",
+    "gulp-babel": "^5.1.0",
+    "gulp-callback": "0.0.3",
+    "gulp-filesize": "0.0.6",
+    "gulp-plumber": "^1.0.0",
+    "gulp-rimraf": "^0.1.1",
+    "gulp-sourcemaps": "^1.5.1",
+    "gulp-util": "^3.0.4",
+    "gulp-watch": "^4.2.4",
+    "lodash": "^3.6.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.1.0"
   }
 }

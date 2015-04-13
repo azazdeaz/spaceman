@@ -1,7 +1,7 @@
 var React = require('react');
-var merge = require('lodash.merge');
-var has = require('lodash.has');
-var isArray = require('lodash.isarray');
+var merge = require('lodash/object/merge');
+var has = require('lodash/object/has');
+var isArray = require('lodash/lang/isArray');
 var { style } = require('react-matterkit');
 var { CustomDrag } = require('react-matterkit').utils;
 import enumerable from './enumerable';
@@ -9,7 +9,7 @@ import enumerable from './enumerable';
 import Sizeable from './Sizeable';
 import Block from './Block';
 
-class Divider extends Sizeable {
+export default class Divider extends Sizeable {
 
   constructor (opt = {}) {
 
@@ -222,5 +222,3 @@ var ResizerComp = React.createClass({
     />;
   }
 });
-
-module.exports = Divider;
