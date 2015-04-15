@@ -20,6 +20,7 @@
   "author": "Polgár András",
   "license": "MIT",
   "dependencies": {
+    "es6-symbol": "^2.0.1",
     "eventman": "git://github.com/azazdeaz/eventman",
     "lodash": "^3.6.0"
   },
