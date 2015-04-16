@@ -57,7 +57,11 @@ export default class Tab {
   }
 
   getComponent(key) {
-    return <TabComp label={this.label} content={this.content} key={key}/>;
+    return <TabComp
+      label={this.label}
+      content={this.content}
+      hideableHead={this.hideableHead} 
+      key={key}/>;
   }
 }
 

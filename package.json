@@ -38,7 +38,6 @@
     "gulp-sourcemaps": "^1.5.1",
     "gulp-util": "^3.0.4",
     "gulp-watch": "^4.2.4",
-    "lodash": "^3.6.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.1.0"

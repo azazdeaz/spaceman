@@ -1,9 +1,8 @@
-var React = require('react');
-var merge = require('lodash/object/merge');
-var isArray = require('lodash/lang/isArray');
-var {Tabs: MatterTabs} = require('react-matterkit');
+import React from 'react';
+import merge from 'lodash/object/merge';
+import isArray from 'lodash/lang/isArray';
+import {Tabs as MatterTabs} from 'react-matterkit';
 import enumerable from './enumerable';
-
 import Sizeable from './Sizeable';
 import Tab from './Tab';
 
@@ -36,10 +35,9 @@ var BlockComp = React.createClass({
 
   noTabs() {
 
-    var children = this.props.children;
+    var {children} = this.props;
 
-    return (!isArray(children) ||
-      (children.length === 0 && children[0].hideableHead));
+    return children.length === 1 && children[0].props.hideableHead;
   },
 
   render() {
