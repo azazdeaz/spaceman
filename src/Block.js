@@ -46,7 +46,7 @@ var BlockComp = React.createClass({
       return <div/>;
     }
     else if (this.noTabs()) {
-      return <div>
+      return <div style={{height: '100%'}}>
         {this.props.children}
       </div>;
     }
