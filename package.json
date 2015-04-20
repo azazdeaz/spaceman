@@ -24,6 +24,9 @@
     "eventman": "git://github.com/azazdeaz/eventman",
     "lodash": "^3.6.0"
   },
+  "peerDependencies": {
+    "react": ">=0.13 <0.14.0"
+  },
   "devDependencies": {
     "babel": "^5.0.10",
     "babelify": "^6.0.2",
