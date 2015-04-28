@@ -51,7 +51,14 @@ var Spaceman = React.createClass({
     else if (structure.type === 'block') model = new Block(structure);
     else throw Error;
 
-    model.onChange = () => this.setState({ model });
+    model.onChange = () => {
+
+      this.setState({ model });
+
+      if (this.props.onChange) {
+        this.props.onChange();
+      }
+    };
 
     return model;
   },

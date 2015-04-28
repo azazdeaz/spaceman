@@ -41,7 +41,6 @@ export default class Divider extends Sizeable {
 
 
   _onDragResizer(md) {
-
     var move = this.direction === 'row' ? md.dx : md.dy;
     var moveFlex = move * md.flexPerPx;
     var prevChild = this.children[md.idx - 1];
@@ -127,7 +126,7 @@ var DividerComp = React.createClass({
 
       if (idx > 0 && child.props.resizeable &&  _prevChild.props.resizeable) {
 
-        let prevChildSize = _prevChild.size;
+        let prevChildSize = _prevChild.props.size;
 
         resizer = <ResizerComp
           onDown={() => ({
@@ -180,7 +179,7 @@ var ResizerComp = React.createClass({
 
   componentDidMount() {
 
-    new CustomDrag({
+    this._dragger = new CustomDrag({
       deTarget: this.getDOMNode(),
       onDown: () => {
         this.setState({dragging: true});
@@ -189,6 +188,11 @@ var ResizerComp = React.createClass({
       onDrag: this.props.onDrag,
       onUp: () => this.setState({dragging: false}),
     });
+  },
+
+  componentWillUnmount() {
+
+    this._dragger.destroy();
   },
 
   render() {
