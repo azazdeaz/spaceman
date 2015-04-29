@@ -1,7 +1,9 @@
 import React from 'react';
 import merge from 'lodash/object/merge';
 import assign from 'lodash/object/assign';
+import has from 'lodash/object/has';
 import isArray from 'lodash/lang/isArray';
+import isNumber from 'lodash/lang/isNumber';
 import {Tabs as MatterTabs} from 'react-matterkit';
 import enumerable from './enumerable';
 import Sizeable from './Sizeable';
@@ -14,13 +16,30 @@ export default class Block extends Sizeable {
     super(merge({
       childTypes: {tab: Tab},
     }, opt));
+
+    this.currTabIdx = has(opt, 'currTabIdx') ? opt.currTabIdx : 0;
   }
 
   getSrc() {
 
     return assign(super.getSrc(), {
       type: 'block',
+      currTabIdx: this.currTabIdx,
     });
+  }
+
+  @enumerable
+  set currTabIdx(v) {
+    if (!isNumber(v)) throw Error;
+    if (v === this._currTabIdx) return;
+    this._currTabIdx = v;
+    this._reportChange();
+  }
+  get currTabIdx() {
+    return  this._currTabIdx;
+
+  onChangeTabIdx(idx) {
+    this.currTabIdx = idx;
   }
 
   getComponent(key) {
@@ -29,6 +48,8 @@ export default class Block extends Sizeable {
       key={key}
       size={this.size}
       sizeMode={this.sizeMode}
+      currTabIdx={this.currTabIdx}
+      onChangeTabIdx={idx => this.onChangeTabIdx(idx)}
       resizeable={this.resizeable}>
       {this.children.map((child, idx) => child.getComponent(idx))}
     </BlockComp>;
@@ -50,12 +71,16 @@ var BlockComp = React.createClass({
       return <div/>;
     }
     else if (this.noTabs()) {
-      return <div style={{height: '100%'}}>
+      return <div id='noTabs' style={{height: '100%'}}>
         {this.props.children}
       </div>;
     }
     else {
-      return <MatterTabs style={{height: '100%'}}>
+      return <MatterTabs
+        style={{height: '100%'}}
+        defaultTabIdx={this.props.currTabIdx}
+        onChangeTabIdx={this.props.onChangeTabIdx}>
+
         {this.props.children}
       </MatterTabs>;
     }
