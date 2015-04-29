@@ -1,5 +1,6 @@
 import React from 'react';
 import merge from 'lodash/object/merge';
+import assign from 'lodash/object/assign';
 import isArray from 'lodash/lang/isArray';
 import {Tabs as MatterTabs} from 'react-matterkit';
 import enumerable from './enumerable';
@@ -15,8 +16,11 @@ export default class Block extends Sizeable {
     }, opt));
   }
 
-  get type() {
-    return 'block';
+  getSrc() {
+
+    return assign(super.getSrc(), {
+      type: 'block',
+    });
   }
 
   getComponent(key) {

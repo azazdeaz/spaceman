@@ -1,4 +1,5 @@
 import isNumber from 'lodash/lang/isNumber';
+import clone from 'lodash/lang/clone';
 import merge from 'lodash/object/merge';
 import pull from 'lodash/array/pull';
 import has from 'lodash/object/has';
@@ -17,6 +18,17 @@ export default class Sizeable {
     if (opt.children) opt.children.forEach(child => this.addChild(child));
 
     this.onChange = opt.onChange;
+  }
+
+  getSrc() {
+
+    return {
+      size: this.size,
+      sizeMode: this.sizeMode,
+      resizeable: this.resizeable,
+      childTypes: clone(this.childTypes),
+      children: this.children.map(child => child.getSrc()),
+    }
   }
 
   addChild(child, idx) {

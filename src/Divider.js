@@ -1,9 +1,11 @@
-var React = require('react');
-var merge = require('lodash/object/merge');
-var has = require('lodash/object/has');
-var isArray = require('lodash/lang/isArray');
-var { style } = require('react-matterkit');
-var { CustomDrag } = require('react-matterkit').utils;
+import React from 'react';
+import merge from 'lodash/object/merge';
+import assign from 'lodash/object/assign';
+import has from 'lodash/object/has';
+import isArray from 'lodash/lang/isArray';
+import Matter from 'react-matterkit';
+var { style } = Matter;
+var { CustomDrag } = Matter.utils;
 import enumerable from './enumerable';
 
 import Sizeable from './Sizeable';
@@ -23,8 +25,12 @@ export default class Divider extends Sizeable {
     this.direction = has(opt, 'direction') ? opt.direction : 'row';
   }
 
-  get type() {
-    return 'divider';
+  getSrc() {
+
+    return assign(super.getSrc(), {
+      type: 'divider',
+      direction: this.direction,
+    });
   }
 
   @enumerable

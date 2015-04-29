@@ -12,8 +12,18 @@ export default class Tab {
     this.content = has(opt, 'content') ? opt.content : '';
     this.hideableHead = has(opt, 'hideableHead') ? opt.hideableHead : false;
 
-    this.childTypes = opt.childTypes || [];
     this.onChange = opt.onChange;
+  }
+
+  getSrc() {
+
+    return {
+      type: 'tab',
+      id: this.id,
+      label: this.label,
+      // content: this.content,
+      hideableHead: this.hideableHead,
+    };
   }
 
   _reportChange() {
@@ -60,7 +70,7 @@ export default class Tab {
     return <TabComp
       label={this.label}
       content={this.content}
-      hideableHead={this.hideableHead} 
+      hideableHead={this.hideableHead}
       key={key}/>;
   }
 }

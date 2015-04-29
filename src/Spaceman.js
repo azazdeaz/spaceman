@@ -18,14 +18,10 @@ var Spaceman = React.createClass({
 
   componentWillReceiveProps(nextProps) {
 
-    if (typeof(nextProps.defaultStructure) === 'object') {
+    var structure  = nextProps.defaultStructure;
 
-      let structure  = nextProps.defaultStructure;
-      this.setState({ model: this._makeModel(structure) });
-    }
+    this.setState({ model: this._makeModel(structure) });
   },
-
-  getModel() {return this.state.model;},//TODO?
 
   setTabContent(id, content) {
 
@@ -56,19 +52,15 @@ var Spaceman = React.createClass({
       this.setState({ model });
 
       if (this.props.onChange) {
-        this.props.onChange();
+        this.props.onChange(this.getSrc());
       }
     };
 
     return model;
   },
 
-  setStructure(structure) {
-    this.setState({structure});
-  },
-
-  getStructure() {
-    return this.state.structure;
+  getSrc() {
+    return this.state.model.getSrc();
   },
 
   statics: {
