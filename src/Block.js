@@ -37,6 +37,7 @@ export default class Block extends Sizeable {
   }
   get currTabIdx() {
     return  this._currTabIdx;
+  }
 
   onChangeTabIdx(idx) {
     this.currTabIdx = idx;

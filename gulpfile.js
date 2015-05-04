@@ -38,7 +38,7 @@ gulp.task('build', function () {
     .pipe(gulp.dest('lib'));
 });
 
-gulp.task('dev', function () {
+gulp.task('watch-build', function () {
   return watch(SOURCES,{base: 'src' })
     .pipe(size())
     .pipe(plumber())
@@ -86,4 +86,5 @@ gulp.task('browser-sync', function() {
   });
 });
 //
-gulp.task('default', ['dev', 'js', 'browser-sync']);
+gulp.task('default', ['watch-build', 'js', 'browser-sync']);
+gulp.task('dev', ['build', 'watch-build']);
