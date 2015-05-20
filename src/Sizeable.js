@@ -20,14 +20,14 @@ export default class Sizeable {
     this.onChange = opt.onChange;
   }
 
-  getSrc() {
+  getStructure() {
 
     return {
       size: this.size,
       sizeMode: this.sizeMode,
       resizeable: this.resizeable,
       childTypes: clone(this.childTypes),
-      children: this.children.map(child => child.getSrc()),
+      children: this.children.map(child => child.getStructure()),
     }
   }
 

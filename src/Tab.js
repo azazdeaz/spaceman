@@ -15,7 +15,7 @@ export default class Tab {
     this.onChange = opt.onChange;
   }
 
-  getSrc() {
+  getStructure() {
 
     return {
       type: 'tab',

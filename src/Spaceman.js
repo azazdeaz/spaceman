@@ -1,79 +1,34 @@
-var React = require('react');
-var isArray = require('lodash/lang/isArray');
-var has = require('lodash/object/has');
-var merge = require('lodash/object/merge');
+import React from 'react';
 
-import Divider from './Divider';
-import Block from './Block';
+import SpacemanStore from './SpacemanStore';
 
 
-var Spaceman = React.createClass({
+export default class Spaceman extends React.Component {
 
-  getInitialState() {
+  static create(props, mount) {
+    return React.render(<Spaceman {...props}/>, mount);
+  }
 
-    var structure = this.props.defaultStructure || {type: 'divider'};
+  static propTypes = {
+    store: React.PropTypes.instanceOf(SpacemanStore).isRequired
+  }
 
-    return { model: this._makeModel(structure) };
-  },
+  componentDidMount() {
+    this.handleStoreChange = this.handleStoreChange.bind(this);
+    this.props.store.on('change', this.handleStoreChange);
+  }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillUnount() {
+    this.props.store.off('change', this.handleStoreChange);
+  }
 
-    var structure  = nextProps.defaultStructure;
-
-    this.setState({ model: this._makeModel(structure) });
-  },
-
-  setTabContent(id, content) {
-
-    var check = function (item) {
-      if (item.type === "tab" && item.id === id) {
-
-        item.content = content;
-        return true;
-      }
-      else if (isArray(item.children)) {
-
-        return !!item.children.some(check);
-      }
-    };
-
-    check(this.state.model);
-  },
-
-  _makeModel(structure) {
-
-    var model;
-    if (structure.type === 'divider') model = new Divider(structure);
-    else if (structure.type === 'block') model = new Block(structure);
-    else throw Error;
-
-    model.onChange = () => {
-
-      this.setState({ model });
-
-      if (this.props.onChange) {
-        this.props.onChange(this.getSrc());
-      }
-    };
-
-    return model;
-  },
-
-  getSrc() {
-    return this.state.model.getSrc();
-  },
-
-  statics: {
-    create: function (props, mount) {
-      return React.render(<Spaceman {...props}/>, mount);
-    }
-  },
+  handleStoreChange() {
+    this.forceUpdate();
+  }
 
   render() {
     return <div style={{width: '100%', height: '100%', position: 'relative'}}>
-      {this.state.model.getComponent('root')}
+      {this.props.store.model.getComponent('root')}
     </div>;
   }
-});
-
-module.exports = Spaceman;
+}

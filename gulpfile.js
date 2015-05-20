@@ -33,7 +33,7 @@ gulp.task('build', function () {
   return gulp.src(SOURCES)
     .pipe(size())
     .pipe(plumber())
-    .pipe(babel({stage: 1}))
+    .pipe(babel())
     .pipe(plumber.stop())
     .pipe(gulp.dest('lib'));
 });
@@ -42,7 +42,7 @@ gulp.task('watch-build', function () {
   return watch(SOURCES,{base: 'src' })
     .pipe(size())
     .pipe(plumber())
-    .pipe(babel({stage: 1}))
+    .pipe(babel())
     .pipe(plumber.stop())
     .pipe(gulp.dest('lib'));
 });

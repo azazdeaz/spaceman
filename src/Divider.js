@@ -25,9 +25,9 @@ export default class Divider extends Sizeable {
     this.direction = has(opt, 'direction') ? opt.direction : 'row';
   }
 
-  getSrc() {
+  getStructure() {
 
-    return assign(super.getSrc(), {
+    return assign(super.getStructure(), {
       type: 'divider',
       direction: this.direction,
     });

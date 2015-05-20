@@ -12,7 +12,6 @@ import Tab from './Tab';
 export default class Block extends Sizeable {
 
   constructor (opt = {}) {
-
     super(merge({
       childTypes: {tab: Tab},
     }, opt));
@@ -20,9 +19,8 @@ export default class Block extends Sizeable {
     this.currTabIdx = has(opt, 'currTabIdx') ? opt.currTabIdx : 0;
   }
 
-  getSrc() {
-
-    return assign(super.getSrc(), {
+  getStructure() {
+    return assign(super.getStructure(), {
       type: 'block',
       currTabIdx: this.currTabIdx,
     });
@@ -36,21 +34,20 @@ export default class Block extends Sizeable {
     this._reportChange();
   }
   get currTabIdx() {
-    return  this._currTabIdx;
+    return this._currTabIdx;
   }
 
-  onChangeTabIdx(idx) {
+  handleChangeTabIdx(idx) {
     this.currTabIdx = idx;
   }
 
   getComponent(key) {
-
     return <BlockComp
       key={key}
       size={this.size}
       sizeMode={this.sizeMode}
       currTabIdx={this.currTabIdx}
-      onChangeTabIdx={idx => this.onChangeTabIdx(idx)}
+      onChangeTabIdx={idx => this.handleChangeTabIdx(idx)}
       resizeable={this.resizeable}>
       {this.children.map((child, idx) => child.getComponent(idx))}
     </BlockComp>;

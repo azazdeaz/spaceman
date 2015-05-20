@@ -1,8 +1,8 @@
 {
   "name": "spaceman",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "react workspace - layout - manager",
-  "main": "lib/Spaceman.js",
+  "main": "lib/index.js",
   "scripts": {
     "dev": "babel src --stage 0 --out-dir lib --watch",
     "prebuild": "rm -rf lib && rm -rf browser && mkdir browser",
@@ -30,9 +30,11 @@
   },
   "devDependencies": {
     "babel": "^5.0.10",
+    "babel-eslint": "^3.1.5",
     "babelify": "^6.0.2",
     "browser-sync": "^2.6.1",
     "browserify": "^9.0.8",
+    "eslint": "^0.21.2",
     "gulp": "^3.8.11",
     "gulp-babel": "^5.1.0",
     "gulp-callback": "0.0.3",
