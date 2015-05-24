@@ -1,7 +1,7 @@
 {
   "name": "spaceman",
   "version": "0.0.3",
-  "description": "react workspace - layout - manager",
+  "description": "react based workspace - layout - manager",
   "main": "lib/index.js",
   "scripts": {
     "dev": "babel src --stage 0 --out-dir lib --watch",
