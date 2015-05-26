@@ -4,7 +4,33 @@ import assign from 'lodash/object/assign';
 import has from 'lodash/object/has';
 import isArray from 'lodash/lang/isArray';
 import Matter from 'react-matterkit';
-var { style } = Matter;
+var style = {
+    palette: {
+      purple: '#8091c6',
+      blue: '#6bb6c4',
+      right: '#43aa81',
+      wrong: '#b64d65',
+      grey1: '#e2e7eb',
+      grey2: '#96a6ad',
+      grey3: '#3b424a',
+      grey4: '#1a1d21',
+      bg: '#262a2e',
+    },
+
+    lineHeight: 32,
+    borderRadius: 3,
+
+    anim: '0.23s cubic-bezier(0.445, 0.050, 0.550, 0.950)',
+
+    fontFamily: 'Open Sans',
+    fontWeight: '300',
+
+    grey: {
+      normal: '#282c30',
+      hover: '#2a3035',
+      active: '#2c3034'
+    },
+  }
 var { CustomDrag } = Matter.utils;
 import enumerable from './enumerable';
 
