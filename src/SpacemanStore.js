@@ -43,7 +43,7 @@ export default class SpacemanStore extends EventEmitter {
     var ret;
 
     var check = (item, parent) => {
-      if (item.type === "tab" && item.id === id) {
+      if (item.type === 'tab' && item.id === id) {
 
         ret = {tab: item, block: parent};
         return true;
@@ -59,7 +59,6 @@ export default class SpacemanStore extends EventEmitter {
   }
 
   setTabContent(id, content) {
-
     var {tab} = this.getTab(id);
 
     if (tab) {
@@ -68,11 +67,18 @@ export default class SpacemanStore extends EventEmitter {
   }
 
   selectTab(id) {
-
     var {tab, block} = this.getTab(id);
 
     if (tab && block) {
       block.currTabIdx = block.children.indexOf(tab);
+    }
+  }
+
+  closeTab(id) {
+    var {tab} = this.getTab(id);
+
+    if (tab) {
+      tab.content = content;
     }
   }
 }

@@ -3,15 +3,12 @@ import merge from 'lodash/object/merge';
 import assign from 'lodash/object/assign';
 import has from 'lodash/object/has';
 import pick from 'lodash/object/pick';
-import isArray from 'lodash/lang/isArray';
-import Matter from 'react-matterkit';
-var { CustomDrag } = Matter.utils;
 
 import prop from './prop';
 import Sizeable from './Sizeable';
 import Block from './Block';
-import DividerComp from './DividerComp';
-import ResizerComp from './ResizerComp';
+import DividerComp from './components/DividerComp';
+import CollapsedDividerComp from './components/CollapsedDividerComp';
 
 
 @prop({name: 'direction', type: 'string', valids: ['row', 'column']})
@@ -29,6 +26,11 @@ export default class Divider extends Sizeable {
     }, opt));
 
     this.direction = has(opt, 'direction') ? opt.direction : 'row';
+    this.collapsed = has(opt, 'collapsed') ? opt.collapsed : false;
+  }
+
+  get type() {
+    return 'divider';
   }
 
   getStructure() {

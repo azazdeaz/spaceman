@@ -1,12 +1,12 @@
-export default class TabComp extends React.Component {
+import React from 'react';
+import TabContentWrapper from './TabContentWrapper';
 
-  getDefaultProps() {
-    return {
-      label: 'Tab',
-      content: '',
-      hideableHead: false,
-    };
-  },
+export default class TabComp extends React.Component {
+  static defaultProps = {
+    label: 'Tab',
+    content: '',
+    hideableHead: false,
+  }
 
   render() {
 
@@ -19,7 +19,7 @@ export default class TabComp extends React.Component {
       icon={icon}
       label={label}>
 
-      <DeWrapper content={this.props.content}/>
+      <TabContentWrapper content={this.props.content}/>
     </div>;
   }
 }

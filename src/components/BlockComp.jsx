@@ -1,7 +1,7 @@
 import React from 'react';
 import {Tabs as MatterTabs} from 'react-matterkit';
 
-class BlockComp extends React.Component {
+export default class BlockComp extends React.Component {
 
   noTabs() {
 

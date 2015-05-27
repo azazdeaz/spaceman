@@ -9,8 +9,8 @@ export default (options) => {
 
   return (target) => {
 
-    Object.defineProperty(target, name, {
-      enumerable: true;
+    Object.defineProperty(target.prototype, name, {
+      enumerable: true,
 
       get() {
         let table = getPropReg(this);
@@ -18,7 +18,7 @@ export default (options) => {
         if (name in table) {
           return table[name];
         }
-      }
+      },
 
       set(nextVal) {
         let table = getPropReg(this);
@@ -29,12 +29,14 @@ export default (options) => {
         }
 
         if (type || valids) {
-          validateType(nextValue, type, valids);
+          nextVal = validateType(nextVal, type, valids);
         }
+
+        table[name] = nextVal;
       }
     });
-  }
-}
+  };
+};
 
 function validateType(value, type, valids) {
 
@@ -55,11 +57,11 @@ function validateType(value, type, valids) {
 
 function getPropReg(instance) {
 
-  let table = propMap.get(obj);
+  let table = propMap.get(instance);
 
   if (!table) {
     table = Object.create(null);
-    memoized.set(obj, table);
+    propMap.set(instance, table);
   }
 
   return table;

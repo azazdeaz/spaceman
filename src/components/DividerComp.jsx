@@ -1,4 +1,7 @@
 import React from 'react';
+import ResizerComp from './ResizerComp';
+import Matter from 'react-matterkit';
+var {getStyles} = Matter.utils;
 
 export default class DividerComp extends React.Component {
 
@@ -27,11 +30,11 @@ export default class DividerComp extends React.Component {
       position: 'relative',
       // background: getColor(),
     };
-  },
+  }
 
   _getFlexPerPx() {
 
-    var br = this.getDOMNode().getBoundingClientRect();
+    var br = React.findDOMNode(this).getBoundingClientRect();
     var fullPx = this.props.direction === 'row' ? br.width : br.height;
     var fullFlex = 0;
 
@@ -47,7 +50,7 @@ export default class DividerComp extends React.Component {
     });
 
     return fullFlex / fullPx;
-  },
+  }
 
   render() {
 
@@ -59,7 +62,7 @@ export default class DividerComp extends React.Component {
       var contStyle = this.getContainerStyle(size, sizeMode);
       var resizer;
 
-      if (idx > 0 && child.props.resizeable &&  _prevChild.props.resizeable) {
+      if (idx > 0 && child.props.resizeable && _prevChild.props.resizeable) {
 
         let prevChildSize = _prevChild.props.size;
 
@@ -88,7 +91,7 @@ export default class DividerComp extends React.Component {
       flexDirection: this.props.direction,
       width: '100%',
       height: '100%',
-      background: style.grey.normal,
+      background: getStyles(this).get('config', {grey: true}).normal,
     };
 
     return <div style={s}>

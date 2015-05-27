@@ -1,16 +1,23 @@
-class ResizerComp extends React.Component {
+import React from 'react';
+import merge from 'lodash/object/merge';
+import Matter from 'react-matterkit';
+var {getStyles, CustomDrag} = Matter.utils;
 
-  getInitialState() {
-    return {
+export default class ResizerComp extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
       hover: false,
       dragging: false,
     };
-  },
+  }
 
   componentDidMount() {
 
     this._dragger = new CustomDrag({
-      deTarget: this.getDOMNode(),
+      deTarget: React.findDOMNode(this),
       onDown: () => {
         this.setState({dragging: true});
         return this.props.onDown();
@@ -18,18 +25,20 @@ class ResizerComp extends React.Component {
       onDrag: this.props.onDrag,
       onUp: () => this.setState({dragging: false}),
     });
-  },
+  }
 
   componentWillUnmount() {
 
     this._dragger.destroy();
-  },
+  }
 
   render() {
 
+    var palette = getStyles(this).get('config', {palette: true});
+
     var s = {
       position: 'absolute',
-      backgroundColor: style.palette.blue,
+      backgroundColor: palette.blue,
       cursor: 'pointer',
       opacity: this.state.hover || this.state.dragging ? 1 : 0,
     };

@@ -1,11 +1,9 @@
 import React from 'react';
-import has from 'lodash/object/has';
+import assign from 'lodash/object/assign';
 import pick from 'lodash/object/pick';
-import isElement from 'lodash/lang/isElement';
 
 import prop from './prop';
-import TabComp from './TabComp';
-import TabContentWrapper from './TabContentWrapper';
+import TabComp from './components/TabComp';
 
 @prop({name: 'id', type: 'string'})
 @prop({name: 'tab', type: 'string'})
@@ -17,20 +15,22 @@ import TabContentWrapper from './TabContentWrapper';
 export default class Tab {
 
   constructor (opt = {}) {
-
-    assign(this, opt, {
+    assign(this, {
       id: 'no-id-set',
       label: 'Tab',
       content: '',
       action: null,
       hideableHead: false,
-    });
+    }, opt);
 
     this.onChange = opt.onChange;
   }
 
-  getStructure() {
+  get type() {
+    return 'tab';
+  }
 
+  getStructure() {
     return {
       type: 'tab',
       id: this.id,
@@ -40,12 +40,7 @@ export default class Tab {
   }
 
   _reportChange() {
-
     if (this.onChange) this.onChange();
-  }
-
-  get type() {
-    return 'tab';
   }
 
   getComponent(key) {

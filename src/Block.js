@@ -1,16 +1,15 @@
+import React from 'react';
 import merge from 'lodash/object/merge';
 import assign from 'lodash/object/assign';
 import has from 'lodash/object/has';
 import pick from 'lodash/object/pick';
-import isArray from 'lodash/lang/isArray';
-import isNumber from 'lodash/lang/isNumber';
 
 import prop from './prop';
 import Sizeable from './Sizeable';
 import Tab from './Tab';
-import BlockComp from './BlockComp';
+import BlockComp from './components/BlockComp';
 
-@prop({name: 'currTapIdx', type: 'int'})
+@prop({name: 'currTabIdx', type: 'int'})
 export default class Block extends Sizeable {
 
   constructor (opt = {}) {
@@ -19,6 +18,10 @@ export default class Block extends Sizeable {
     }, opt));
 
     this.currTabIdx = has(opt, 'currTabIdx') ? opt.currTabIdx : 0;
+  }
+
+  get type() {
+    return 'block';
   }
 
   getStructure() {
@@ -37,7 +40,7 @@ export default class Block extends Sizeable {
       key={key}
       {...pick(this, ['size', 'sizeMode', 'currTabIdx', 'resizeable'])}
       onChangeTabIdx={idx => this.handleChangeTabIdx(idx)}>
-      
+
       {this.children.map((child, idx) => child.getComponent(idx))}
     </BlockComp>;
   }

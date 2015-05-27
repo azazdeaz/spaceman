@@ -1,10 +1,14 @@
 {
   "parser": "babel-eslint",
+  "plugins": [
+    "react"
+  ],
   "env": {
     "browser": true,
     "node": true
   },
   "rules": {
+    "react/jsx-uses-react": 1,
     "modules": true,
     "quotes": [2, "single"],
     "eol-last": [0],
