@@ -5,7 +5,7 @@ let propMap = new WeakMap();
 
 export default (options) => {
 
-  var {name, type, valids} = options;
+  var {name, type, valids, initialValue, get: getter, set: setter} = options;
 
   return (target) => {
 
@@ -14,10 +14,20 @@ export default (options) => {
 
       get() {
         let table = getPropReg(this);
+        let ret;
 
         if (name in table) {
-          return table[name];
+          ret = table[name];
         }
+        else {
+          ret = initialValue;
+        }
+
+        if (getter) {
+          ret = getter.call(this, ret);
+        }
+
+        return ret;
       },
 
       set(nextVal) {
@@ -32,7 +42,15 @@ export default (options) => {
           nextVal = validateType(nextVal, type, valids);
         }
 
+        if (setter) {
+          nextVal = setter.call(this, nextVal);
+        }
+
         table[name] = nextVal;
+
+        if (this.onChange) {
+          this.onChange();
+        }
       }
     });
   };

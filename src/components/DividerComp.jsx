@@ -25,10 +25,12 @@ export default class DividerComp extends React.Component {
     }
 
     return {
-      flex, width, height,
-      // border:'solid 1px black',
+      flex,
+      width,
+      height,
       position: 'relative',
-      // background: getColor(),
+      display: 'flex',
+      flexDirection: 'column',
     };
   }
 

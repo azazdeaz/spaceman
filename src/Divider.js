@@ -14,6 +14,9 @@ import CollapsedDividerComp from './components/CollapsedDividerComp';
 @prop({name: 'direction', type: 'string', valids: ['row', 'column']})
 @prop({name: 'collapsed', type: 'boolean'})
 @prop({name: 'openSide', type: 'string', valids: ['before', 'after']})
+@prop({name: 'size', get(val) { return this.collapsed ? 32 : val; }})
+@prop({name: 'sizeMode', get(val) { return this.collapsed ? 'fix' : val; }})
+@prop({name: 'resizeable', get(val) { return this.collapsed ? false : val; }})
 export default class Divider extends Sizeable {
 
   constructor (opt = {}) {
