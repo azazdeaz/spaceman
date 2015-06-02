@@ -61,13 +61,14 @@ export default class CollapsedDividerComp extends React.Component {
     var {direction, openSide} = this.props;
     var s = {
       position: 'absolute',
+      zIndex: 1,
     };
     if (direction === 'row') {
-      s.width = '100%';
+      // s.width = '100%';
       s[openSide === 'before' ? 'bottom' : 'top'] = '100%';
     }
     else {
-      s.height = '100%';
+      // s.height = '100%';
       s[openSide === 'before' ? 'right' : 'left'] = '100%';
     }
 
@@ -82,7 +83,9 @@ export default class CollapsedDividerComp extends React.Component {
     var {childModels} = this.props;
 
     return <Toolbar
-      style={{position: 'relative'}}
+      style={{
+        position: 'relative'
+      }}
       direction={this.props.direction}>
       {this.renderChildren(childModels)}
       {this.renderDisplay()}

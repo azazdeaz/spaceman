@@ -13,6 +13,7 @@ import CollapsedDividerComp from './components/CollapsedDividerComp';
 
 @prop({name: 'direction', type: 'string', valids: ['row', 'column']})
 @prop({name: 'collapsed', type: 'boolean'})
+@prop({name: 'expandedTabId', type: 'string'})
 @prop({name: 'openSide', type: 'string', valids: ['before', 'after']})
 @prop({name: 'size', get(val) { return this.collapsed ? 32 : val; }})
 @prop({name: 'sizeMode', get(val) { return this.collapsed ? 'fix' : val; }})
@@ -59,19 +60,15 @@ export default class Divider extends Sizeable {
     if (this.collapsed) {
       return <CollapsedDividerComp
         key={key}
-        {...pick(this, ['openSide', 'direction'])}
-        childModels={this.children}>
-        {this.children.map((child, idx) => child.getComponent(idx))}
-      </CollapsedDividerComp>;
+        {...pick(this, ['openSide', 'direction', 'expandedTabId'])}
+        childModels={this.children}/>;
     }
     else {
       return <DividerComp
         key={key}
         {...pick(this, ['size', 'sizeMode', 'resizeable', 'direction'])}
         onDragResizer={md => this._onDragResizer(md)}
-        childModels={this.children}>
-        {this.children.map((child, idx) => child.getComponent(idx))}
-      </DividerComp>;
+        childModels={this.children}/>;
     }
   }
 }

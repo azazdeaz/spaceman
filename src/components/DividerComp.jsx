@@ -7,31 +7,21 @@ export default class DividerComp extends React.Component {
 
   getContainerStyle(size, sizeMode) {
 
-    var flex, width = '100%', height = '100%';
-
-    if (sizeMode === 'fix') {
-
-      if (this.props.direction === 'row') {
-
-        width = size + 'px';
-      }
-      else {
-        height = size + 'px';
-      }
-    }
-    else if (sizeMode === 'flex') {
-
-      flex = size;
-    }
-
-    return {
-      flex,
-      width,
-      height,
+    var {direction} = this.props;
+    var style = {
       position: 'relative',
       display: 'flex',
-      flexDirection: 'column',
     };
+
+    if (sizeMode === 'fix') {
+      style[direction === 'row' ? 'width' : 'height'] = size + 'px';
+    }
+    else if (sizeMode === 'flex') {
+      style[direction === 'row' ? 'width' : 'height'] = '1px';
+      style.flex = size;
+      style.flexDirection = direction;
+    }
+    return style;
   }
 
   _getFlexPerPx() {
@@ -55,44 +45,46 @@ export default class DividerComp extends React.Component {
   }
 
   render() {
-
+    var {childModels, direction} = this.props;
     var _prevChild;
-    var children = React.Children.map(this.props.children, (child, idx) => {
 
-      var size = child.props.size;
-      var sizeMode = child.props.sizeMode;
-      var contStyle = this.getContainerStyle(size, sizeMode);
+    var children = childModels.map((child, idx) => {
+      var contStyle = this.getContainerStyle(child.size, child.sizeMode);
       var resizer;
 
-      if (idx > 0 && child.props.resizeable && _prevChild.props.resizeable) {
+      if (idx > 0 && child.resizeable && _prevChild.resizeable) {
 
-        let prevChildSize = _prevChild.props.size;
+        let prevChildSize = _prevChild.size;
 
         resizer = <ResizerComp
           onDown={() => ({
             idx,
             flexPerPx: this._getFlexPerPx(),
             prevChildSize: prevChildSize,
-            nextChildSize: size,
+            nextChildSize: child.size,
           })}
-          direction={this.props.direction}
+          direction={direction}
           onDrag={md => this.props.onDragResizer(md)}/>;
       }
 
       _prevChild = child;
 
       return <div style={contStyle} key={idx}>
-        {child}
+        {child.getComponent(idx)}
         {resizer}
       </div>;
     });
 
     var s = {
       display: 'flex',
-      position: 'absolute',
-      flexDirection: this.props.direction,
-      width: '100%',
+      position: 'relative',
+      flexDirection: direction,
+      // flexBasis: '100%',
+      // alignContent: 'stretch',
+      // alignItems: 'stretch',
+      // width: '100%',
       height: '100%',
+      // [direction === 'row' ? 'width' : 'height']: '1px',
       background: getStyles(this).get('config', {grey: true}).normal,
     };
 

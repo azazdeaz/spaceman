@@ -74,11 +74,11 @@ export default class SpacemanStore extends EventEmitter {
     }
   }
 
-  closeTab(id) {
+  expandTab(id) {
     var {tab} = this.getTab(id);
+  }
 
-    if (tab) {
-      tab.content = content;
-    }
+  collapseTab(id) {
+    var {tab} = this.getTab(id);
   }
 }

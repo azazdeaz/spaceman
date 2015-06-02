@@ -18,7 +18,7 @@ export default class Tab {
     assign(this, {
       id: 'no-id-set',
       label: 'Tab',
-      content: '',
+      content: 'da content',
       action: null,
       hideableHead: false,
     }, opt);
