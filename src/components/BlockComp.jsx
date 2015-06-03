@@ -16,13 +16,13 @@ export default class BlockComp extends React.Component {
       return <div/>;
     }
     else if (this.noTabs()) {
-      return <div id='noTabs' style={{height: '100%'}}>
+      return <div id='noTabs' style={{flex: 1, display: 'flex'}}>
         {this.props.children}
       </div>;
     }
     else {
       return <MatterTabs
-        style={{height: '100%'}}
+        style={{flex: 1}}
         defaultTabIdx={this.props.currTabIdx}
         onChangeTabIdx={this.props.onChangeTabIdx}>
 

@@ -27,7 +27,12 @@ export default class Spaceman extends React.Component {
   }
 
   render() {
-    return <div style={{width: '100%', height: '100%', position: 'relative'}}>
+    return <div style={{
+        display: 'flex',
+        position: 'relative',
+        width: '100%',
+        height: '100%',
+      }}>
       {this.props.store.model.getComponent('root')}
     </div>;
   }

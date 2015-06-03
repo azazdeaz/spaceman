@@ -79,12 +79,7 @@ export default class DividerComp extends React.Component {
       display: 'flex',
       position: 'relative',
       flexDirection: direction,
-      // flexBasis: '100%',
-      // alignContent: 'stretch',
-      // alignItems: 'stretch',
-      // width: '100%',
-      height: '100%',
-      // [direction === 'row' ? 'width' : 'height']: '1px',
+      flex: 1,
       background: getStyles(this).get('config', {grey: true}).normal,
     };
 
