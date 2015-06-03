@@ -23,7 +23,7 @@ export default class BlockComp extends React.Component {
     else {
       return <MatterTabs
         style={{flex: 1}}
-        defaultTabIdx={this.props.currTabIdx}
+        defaultTabIdx={this.props.defaultTabIdx}
         onChangeTabIdx={this.props.onChangeTabIdx}>
 
         {this.props.children}

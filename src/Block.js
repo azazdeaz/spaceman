@@ -3,13 +3,14 @@ import merge from 'lodash/object/merge';
 import assign from 'lodash/object/assign';
 import has from 'lodash/object/has';
 import pick from 'lodash/object/pick';
+import findIndex from 'lodash/array/findIndex';
 
 import prop from './prop';
 import Sizeable from './Sizeable';
 import Tab from './Tab';
 import BlockComp from './components/BlockComp';
 
-@prop({name: 'currTabIdx', type: 'int'})
+@prop({name: 'selectedTabId', type: 'int'})
 export default class Block extends Sizeable {
 
   constructor (opt = {}) {
@@ -17,7 +18,7 @@ export default class Block extends Sizeable {
       childTypes: {tab: Tab},
     }, opt));
 
-    this.currTabIdx = has(opt, 'currTabIdx') ? opt.currTabIdx : 0;
+    this.selectedTabId = has(opt, 'selectedTabId') ? opt.selectedTabId : 0;
   }
 
   get type() {
@@ -27,19 +28,24 @@ export default class Block extends Sizeable {
   getStructure() {
     return assign(super.getStructure(), {
       type: 'block',
-      currTabIdx: this.currTabIdx,
+      selectedTabId: this.selectedTabId,
     });
   }
 
   handleChangeTabIdx(idx) {
-    this.currTabIdx = idx;
+    this.selectedTabId = this.children[idx].id;
   }
 
   getComponent(key) {
+    var defaultTabIdx = findIndex(this.children, childTab => {
+      return childTab.id === this.selectedTabId;
+    });
+
     return <BlockComp
-      key={key}
-      {...pick(this, ['size', 'sizeMode', 'currTabIdx', 'resizeable'])}
-      onChangeTabIdx={idx => this.handleChangeTabIdx(idx)}>
+      key = {key}
+      {...pick(this, ['size', 'sizeMode', 'resizeable'])}
+      defaultTabIdx = {defaultTabIdx}
+      onChangeTabIdx = {idx => this.handleChangeTabIdx(idx)}>
 
       {this.children.map((child, idx) => child.getComponent(idx))}
     </BlockComp>;

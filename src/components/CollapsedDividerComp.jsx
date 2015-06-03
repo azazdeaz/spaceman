@@ -3,28 +3,16 @@ import {Button, Toolbar, ToolbarGroup} from 'react-matterkit';
 
 export default class CollapsedDividerComp extends React.Component {
 
+  static contextTypes = {
+    store: React.PropTypes.object,
+  }
+
   constructor(props) {
     super(props);
 
     this.state = {
-      displayedTab: undefined,
+      expandedTab: undefined,
     };
-  }
-
-  handleClickTab(tab) {
-    if (tab.action) {
-      tab.action();
-    }
-
-    if (tab.content) {
-      this.setState({displayedTab: tab});
-    }
-  }
-
-  handleDragOverTab(tab) {
-    if (tab.content) {
-      this.setState({displayedTab: tab});
-    }
   }
 
   renderBlock(block, key) {
@@ -34,8 +22,8 @@ export default class CollapsedDividerComp extends React.Component {
           key = {idx}
           icon = {tab.icon}
           mod = {{kind: 'stamp'}}
-          onClick = {() => this.handleClickTab(tab)}
-          onDragOver = {() => this.handleDragOverTab(tab)}/>;
+          onClick = {() => this.props.onClickTab(tab)}
+          onDragOver = {() => this.props.onDragOverTab(tab)}/>;
       })}
     </span>;
   }
@@ -54,9 +42,9 @@ export default class CollapsedDividerComp extends React.Component {
 
   renderDisplay() {
 
-    var {displayedTab} = this.state;
+    var {tab: expandedTab} = this.context.store.getTab(this.props.expandedTabId);
 
-    if (!displayedTab) return null;
+    if (!expandedTab) return null;
 
     var {direction, openSide} = this.props;
     var s = {
@@ -64,19 +52,17 @@ export default class CollapsedDividerComp extends React.Component {
       zIndex: 1,
     };
     if (direction === 'row') {
-      // s.width = '100%';
+      s.width = '100%';
       s[openSide === 'before' ? 'bottom' : 'top'] = '100%';
     }
     else {
-      // s.height = '100%';
+      s.height = '100%';
       s[openSide === 'before' ? 'right' : 'left'] = '100%';
     }
 
-    if (displayedTab) {
-      return <div style={s}>
-        {displayedTab.getComponent()}
-      </div>;
-    }
+    return <div style={s}>
+      {expandedTab.getComponent()}
+    </div>;
   }
 
   render() {

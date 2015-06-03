@@ -45,7 +45,7 @@ export default class Divider extends Sizeable {
     });
   }
 
-  _onDragResizer(md) {
+  handleDragResizer(md) {
     var move = this.direction === 'row' ? md.dx : md.dy;
     var moveFlex = move * md.flexPerPx;
     var prevChild = this.children[md.idx - 1];
@@ -56,19 +56,51 @@ export default class Divider extends Sizeable {
     this._reportChange();
   }
 
+  handleClickCollapsedTab = (tab) => {
+    if (tab.action) {
+      tab.action();
+    }
+
+    if (tab.content) {
+      if (this.expandedTabId === tab.id) {
+        this.expandedTabId = null;
+      }
+      else {
+        this.expandedTabId = tab.id;
+      };
+    }
+  }
+
+  handleDragOverCollapsedTab = (tab) => {
+    if (tab.action) {
+      tab.action();
+    }
+
+    if (tab.content) {
+      if (this.expandedTabId === tab.id) {
+        this.expandedTabId = null;
+      }
+      else {
+        this.expandedTabId = tab.id;
+      };
+    }
+  }
+
   getComponent(key) {
     if (this.collapsed) {
       return <CollapsedDividerComp
-        key={key}
+        key = {key}
         {...pick(this, ['openSide', 'direction', 'expandedTabId'])}
-        childModels={this.children}/>;
+        onClickTab = {this.handleClickCollapsedTab}
+        onDragOverTab = {this.handleDragOverCollapsedTab}
+        childModels = {this.children}/>;
     }
     else {
       return <DividerComp
         key={key}
         {...pick(this, ['size', 'sizeMode', 'resizeable', 'direction'])}
-        onDragResizer={md => this._onDragResizer(md)}
-        childModels={this.children}/>;
+        onDragResizer = {md => this.handleDragResizer(md)}
+        childModels = {this.children}/>;
     }
   }
 }

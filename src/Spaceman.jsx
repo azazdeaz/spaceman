@@ -10,7 +10,15 @@ export default class Spaceman extends React.Component {
   }
 
   static propTypes = {
-    store: React.PropTypes.instanceOf(SpacemanStore).isRequired
+    store: React.PropTypes.object
+  }
+
+  static childContextTypes = {
+    store: React.PropTypes.object
+  }
+
+  getChildContext() {
+    return {store: this.props.store};
   }
 
   componentDidMount() {
