@@ -18,7 +18,7 @@ export default class Block extends Sizeable {
       childTypes: {tab: Tab},
     }, opt));
 
-    this.selectedTabId = has(opt, 'selectedTabId') ? opt.selectedTabId : 0;
+    this.selectedTabId = has(opt, 'selectedTabId') ? opt.selectedTabId : this.children[0].id;
   }
 
   get type() {
