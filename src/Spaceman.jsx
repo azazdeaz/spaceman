@@ -1,7 +1,5 @@
 import React from 'react';
 
-import SpacemanStore from './SpacemanStore';
-
 
 export default class Spaceman extends React.Component {
 
@@ -22,16 +20,16 @@ export default class Spaceman extends React.Component {
   }
 
   componentDidMount() {
-    this.handleStoreChange = this.handleStoreChange.bind(this);
     this.props.store.on('change', this.handleStoreChange);
   }
 
   componentWillUnount() {
-    this.props.store.off('change', this.handleStoreChange);
+    this.props.store.removeListener('change', this.handleStoreChange);
   }
 
-  handleStoreChange() {
-    this.forceUpdate();
+  handleStoreChange = () => {
+    // this.forceUpdate();
+    this.setState({})
   }
 
   render() {
