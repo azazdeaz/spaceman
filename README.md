@@ -3,7 +3,7 @@ Work is in progress but the API will look something like this:
 
 ```javascript
 import {Spaceman, SpacemanStore} from 'spaceman'
-import defaultWorkspace './defaultWorkspace'
+import defaultWorkspace from './defaultWorkspace'
 
 var workspace = localStoreage.lastWorkspace || defaultWorkspace
 Workspace = new SpacemanStore({source: workspace})
