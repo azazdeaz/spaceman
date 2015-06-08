@@ -3,9 +3,13 @@ import clone from 'lodash/lang/clone';
 import merge from 'lodash/object/merge';
 import pull from 'lodash/array/pull';
 import has from 'lodash/object/has';
-import enumerable from './enumerable';
+import prop from './prop';
 
-export default class Sizeable {
+
+@prop({name: 'size', type: 'number'})
+@prop({name: 'sizeMode', type: 'string', valids: ['flex', 'fix']})
+@prop({name: 'resizeable', type: 'boolean'})
+export default class SizeableContainers {
 
   constructor (opt) {
 
@@ -59,38 +63,5 @@ export default class Sizeable {
   _reportChange() {
 
     if (this.onChange) this.onChange();
-  }
-
-  @enumerable
-  set size(v) {
-    if (!isNumber(v)) throw Error;
-    if (v === this._size) return;
-    this._size = v;
-    this._reportChange();
-  }
-  get size() {
-    return  this._size;
-  }
-
-  @enumerable
-  set sizeMode(v) {
-    if (v !== 'flex' && v !== 'fix') throw Error;
-    if (v === this._sizeMode) return;
-    this._sizeMode = v;
-    this._reportChange();
-  }
-  get sizeMode() {
-    return  this._sizeMode;
-  }
-
-  @enumerable
-  set resizeable(v) {
-    v = !!v;
-    if (v === this._resizeable) return;
-    this._resizeable = v;
-    this._reportChange();
-  }
-  get resizeable() {
-    return  this._resizeable;
   }
 }

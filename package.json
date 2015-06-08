@@ -1,15 +1,11 @@
 {
   "name": "spaceman",
-  "version": "0.0.3",
-  "description": "react workspace - layout - manager",
+  "version": "0.0.4",
+  "description": "react based workspace - layout - manager",
   "main": "lib/index.js",
   "scripts": {
-    "dev": "babel src --stage 0 --out-dir lib --watch",
-    "prebuild": "rm -rf lib && rm -rf browser && mkdir browser",
-    "build:lib": "babel src --stage 0 --out-dir lib",
-    "build:browser": "browserify lib/Spaceman.js --standalone spaceman --debug | exorcist browser/spaceman.js.map > browser/spaceman.js",
-    "build": "npm run build:lib && npm run build:browser",
-    "_prepublish": "npm run build"
+    "lib": "babel ./src --out-dir lib  --source-maps",
+    "lib-watch": "npm run lib && babel ./src --out-dir lib  --source-maps --source-maps --watch"
   },
   "keywords": [
     "layout",
@@ -30,11 +26,12 @@
   },
   "devDependencies": {
     "babel": "^5.0.10",
-    "babel-eslint": "^3.1.5",
+    "babel-eslint": "^3.1.9",
     "babelify": "^6.0.2",
     "browser-sync": "^2.6.1",
     "browserify": "^9.0.8",
     "eslint": "^0.21.2",
+    "eslint-plugin-react": "^2.3.0",
     "gulp": "^3.8.11",
     "gulp-babel": "^5.1.0",
     "gulp-callback": "0.0.3",

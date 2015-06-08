@@ -1,125 +1,51 @@
 import React from 'react';
-import has from 'lodash/object/has';
-import isElement from 'lodash/lang/isElement';
-import enumerable from './enumerable';
+import assign from 'lodash/object/assign';
+import pick from 'lodash/object/pick';
 
+import prop from './prop';
+import TabComp from './components/TabComp';
+
+@prop({name: 'id', type: 'string'})
+@prop({name: 'tab', type: 'string'})
+@prop({name: 'label', type: 'string'})
+@prop({name: 'icon', type: 'string'})
+@prop({name: 'content'})
+@prop({name: 'action', type: 'function'})
+@prop({name: 'hideableHead', type: 'boolean'})
 export default class Tab {
 
   constructor (opt = {}) {
-
-    this.id = has(opt, 'id') ? opt.id : {};
-    this.label = has(opt, 'label') ? opt.label : 'Tab';
-    this.content = has(opt, 'content') ? opt.content : '';
-    this.hideableHead = has(opt, 'hideableHead') ? opt.hideableHead : false;
+    assign(this, {
+      id: 'no-id-set',
+      label: 'Tab',
+      content: 'da content',
+      action: null,
+      hideableHead: false,
+    }, opt);
 
     this.onChange = opt.onChange;
-  }
-
-  getStructure() {
-
-    return {
-      type: 'tab',
-      id: this.id,
-      label: this.label,
-      // content: this.content,
-      hideableHead: this.hideableHead,
-    };
-  }
-
-  _reportChange() {
-
-    if (this.onChange) this.onChange();
   }
 
   get type() {
     return 'tab';
   }
 
-  @enumerable
-  set label(v) {
-    v = '' + v;
-    if (v === this._label) return;
-    this._label = v;
-    this._reportChange();
-  }
-  get label() {
-    return  this._label;
+  getStructure() {
+    return {
+      type: 'tab',
+      id: this.id,
+      label: this.label,
+      hideableHead: this.hideableHead,
+    };
   }
 
-  set content(v) {
-    if (v === this._content) return;
-    this._content = v;
-    this._reportChange();
-  }
-  get content() {
-    return  this._content;
-  }
-
-  @enumerable
-  set hideableHead(v) {
-    v = !!v;
-    if (v === this._hideableHead) return;
-    this._hideableHead = v;
-    this._reportChange();
-  }
-  get hideableHead() {
-    return  this._hideableHead;
+  _reportChange() {
+    if (this.onChange) this.onChange();
   }
 
   getComponent(key) {
     return <TabComp
-      label={this.label}
-      content={this.content}
-      hideableHead={this.hideableHead}
-      key={key}/>;
+      key = {key}
+      {...pick(this, ['label', 'icon', 'content', 'action', 'hideableHead'])}/>;
   }
 }
-
-var TabComp = React.createClass({
-
-  getDefaultProps() {
-    return {
-      label: 'Tab',
-      content: '',
-      hideableHead: false,
-    };
-  },
-
-  render() {
-
-    return <div
-      style={{width: '100%', height: '100%'}}
-      label={this.props.label}>
-
-      <DeWrapper content={this.props.content}/>
-    </div>;
-  }
-});
-
-var DeWrapper = React.createClass({
-
-  componentDidMount() {
-    this._insertDeContent();
-  },
-
-  shouldComponentUpdate(nextProps) {
-    return this.props.content !== nextProps.content;
-  },
-
-  componentDidUpdate() {
-    this._insertDeContent();
-  },
-
-  _insertDeContent() {
-    if (isElement(this.props.content)) {
-      this.getDOMNode().appendChild(this.props.content);
-    }
-  },
-
-  render() {
-    var {content} = this.props;
-    return React.isValidElement(content) ? content : <div/>
-  }
-});
-
-module.exports = Tab;
