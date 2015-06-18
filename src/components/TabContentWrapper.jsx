@@ -23,6 +23,9 @@ export default class DeWrapper extends React.Component {
 
   render() {
     var {content} = this.props;
+    if (typeof content === 'function') {
+      content = content();
+    }
     return React.isValidElement(content) ? content : <div/>;
   }
 }
