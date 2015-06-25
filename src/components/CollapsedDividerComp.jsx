@@ -16,7 +16,7 @@ export default class CollapsedDividerComp extends React.Component {
   }
 
   renderBlock(block, key) {
-    return <span key={key}>
+    return <ToolbarGroup key={key}>
       {block.children.map((tab, idx) => {
         return <Button
           key = {idx}
@@ -25,11 +25,10 @@ export default class CollapsedDividerComp extends React.Component {
           onClick = {() => this.props.onClickTab(tab)}
           onDragOver = {() => this.props.onDragOverTab(tab)}/>;
       })}
-    </span>;
+    </ToolbarGroup>;
   }
 
   renderChildren(children) {
-
     return children.map((child, idx) => {
       if (child.type === 'block') {
         return this.renderBlock(child, idx);
@@ -40,8 +39,7 @@ export default class CollapsedDividerComp extends React.Component {
     });
   }
 
-  renderDisplay() {
-
+  renderExpander() {
     var {tab: expandedTab} = this.context.store.getTab(this.props.expandedTabId);
 
     if (!expandedTab) return null;
@@ -66,15 +64,17 @@ export default class CollapsedDividerComp extends React.Component {
   }
 
   render() {
-    var {childModels} = this.props;
+    var {childModels, direction} = this.props;
 
     return <Toolbar
-      style={{
-        position: 'relative'
+      style = {{
+        position: 'relative',
+        flexDirection: direction
       }}
-      direction={this.props.direction}>
+      size = {32}>
+
       {this.renderChildren(childModels)}
-      {this.renderDisplay()}
+      {this.renderExpander()}
     </Toolbar>;
   }
 }
