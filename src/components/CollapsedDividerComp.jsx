@@ -68,9 +68,9 @@ export default class CollapsedDividerComp extends React.Component {
 
     return <Toolbar
       style = {{
-        position: 'relative',
-        flexDirection: direction
+        position: 'relative'
       }}
+      direction = {direction}
       size = {32}>
 
       {this.renderChildren(childModels)}

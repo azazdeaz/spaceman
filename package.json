@@ -1,11 +1,11 @@
 {
   "name": "spaceman",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "react based workspace - layout - manager",
   "main": "lib/index.js",
   "scripts": {
     "lib": "babel ./src --out-dir lib  --source-maps",
-    "lib-watch": "npm run lib && babel ./src --out-dir lib  --source-maps --source-maps --watch"
+    "lib-watch": "npm run lib && babel ./src --out-dir lib --source-maps --source-maps --watch"
   },
   "keywords": [
     "layout",
