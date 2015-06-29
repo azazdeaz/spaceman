@@ -1,5 +1,5 @@
-import React from 'react';
-import {Button, Toolbar, ToolbarGroup} from 'react-matterkit';
+import React from 'react'
+import {Button, Toolbar, ToolbarGroup} from 'react-matterkit'
 
 export default class CollapsedDividerComp extends React.Component {
 
@@ -8,11 +8,11 @@ export default class CollapsedDividerComp extends React.Component {
   }
 
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       expandedTab: undefined,
-    };
+    }
   }
 
   renderBlock(block, key) {
@@ -23,48 +23,48 @@ export default class CollapsedDividerComp extends React.Component {
           icon = {tab.icon}
           mod = {{kind: 'stamp'}}
           onClick = {() => this.props.onClickTab(tab)}
-          onDragOver = {() => this.props.onDragOverTab(tab)}/>;
+          onDragOver = {() => this.props.onDragOverTab(tab)}/>
       })}
-    </ToolbarGroup>;
+    </ToolbarGroup>
   }
 
   renderChildren(children) {
     return children.map((child, idx) => {
       if (child.type === 'block') {
-        return this.renderBlock(child, idx);
+        return this.renderBlock(child, idx)
       }
       else if (child.type === 'divider') {
-        return this.renderChildren(child.children);
+        return this.renderChildren(child.children)
       }
-    });
+    })
   }
 
   renderExpander() {
-    var {tab: expandedTab} = this.context.store.getTab(this.props.expandedTabId);
+    var {tab: expandedTab} = this.context.store.getTab(this.props.expandedTabId)
 
-    if (!expandedTab) return null;
+    if (!expandedTab) return null
 
-    var {direction, openSide} = this.props;
+    var {direction, openSide} = this.props
     var s = {
       position: 'absolute',
       zIndex: 1,
-    };
+    }
     if (direction === 'row') {
-      s.width = '100%';
-      s[openSide === 'before' ? 'bottom' : 'top'] = '100%';
+      s.width = '100%'
+      s[openSide === 'before' ? 'bottom' : 'top'] = '100%'
     }
     else {
-      s.height = '100%';
-      s[openSide === 'before' ? 'right' : 'left'] = '100%';
+      s.height = '100%'
+      s[openSide === 'before' ? 'right' : 'left'] = '100%'
     }
 
     return <div style={s}>
       {expandedTab.getComponent()}
-    </div>;
+    </div>
   }
 
   render() {
-    var {childModels, direction} = this.props;
+    var {childModels, direction} = this.props
 
     return <Toolbar
       style = {{
@@ -75,6 +75,6 @@ export default class CollapsedDividerComp extends React.Component {
 
       {this.renderChildren(childModels)}
       {this.renderExpander()}
-    </Toolbar>;
+    </Toolbar>
   }
 }

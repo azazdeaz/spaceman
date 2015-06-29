@@ -1,31 +1,31 @@
-import React from 'react';
-import isElement from 'lodash/lang/isElement';
+import React from 'react'
+import isElement from 'lodash/lang/isElement'
 
 export default class DeWrapper extends React.Component {
 
   componentDidMount() {
-    this._insertDeContent();
+    this._insertDeContent()
   }
 
   shouldComponentUpdate(nextProps) {
-    return this.props.content !== nextProps.content;
+    return this.props.content !== nextProps.content
   }
 
   componentDidUpdate() {
-    this._insertDeContent();
+    this._insertDeContent()
   }
 
   _insertDeContent() {
     if (isElement(this.props.content)) {
-      React.findDOMNode(this).appendChild(this.props.content);
+      React.findDOMNode(this).appendChild(this.props.content)
     }
   }
 
   render() {
-    var {content} = this.props;
+    var {content} = this.props
     if (typeof content === 'function') {
-      content = content();
+      content = content()
     }
-    return React.isValidElement(content) ? content : <div/>;
+    return React.isValidElement(content) ? content : <div/>
   }
 }

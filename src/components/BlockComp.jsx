@@ -1,24 +1,24 @@
-import React from 'react';
-import {Tabs as MatterTabs} from 'react-matterkit';
+import React from 'react'
+import {Tabs as MatterTabs} from 'react-matterkit'
 
 export default class BlockComp extends React.Component {
 
   noTabs() {
 
-    var {children} = this.props;
+    var {children} = this.props
 
-    return children.length === 1 && children[0].props.hideableHead;
+    return children.length === 1 && children[0].props.hideableHead
   }
 
   render() {
 
     if (this.props.hole) {
-      return <div/>;
+      return <div/>
     }
     else if (this.noTabs()) {
       return <div id='noTabs' style={{flex: 1, display: 'flex'}}>
         {this.props.children}
-      </div>;
+      </div>
     }
     else {
       return <MatterTabs
@@ -27,7 +27,7 @@ export default class BlockComp extends React.Component {
         onChangeTabIdx={this.props.onChangeTabIdx}>
 
         {this.props.children}
-      </MatterTabs>;
+      </MatterTabs>
     }
   }
 }

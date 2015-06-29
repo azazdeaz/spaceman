@@ -1,5 +1,5 @@
-import React from 'react';
-import TabContentWrapper from './TabContentWrapper';
+import React from 'react'
+import TabContentWrapper from './TabContentWrapper'
 
 export default class TabComp extends React.Component {
   static defaultProps = {
@@ -10,7 +10,7 @@ export default class TabComp extends React.Component {
 
   render() {
 
-    var {icon, label, content, action} = this.props;
+    var {icon, label, content, action} = this.props
 
     return <div
       style={{display: 'flex', flex: 1}}
@@ -20,6 +20,6 @@ export default class TabComp extends React.Component {
       label={label}>
 
       <TabContentWrapper content={this.props.content}/>
-    </div>;
+    </div>
   }
 }

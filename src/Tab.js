@@ -1,9 +1,9 @@
-import React from 'react';
-import assign from 'lodash/object/assign';
-import pick from 'lodash/object/pick';
+import React from 'react'
+import assign from 'lodash/object/assign'
+import pick from 'lodash/object/pick'
 
-import prop from './prop';
-import TabComp from './components/TabComp';
+import prop from './prop'
+import TabComp from './components/TabComp'
 
 @prop({name: 'id', type: 'string'})
 @prop({name: 'tab', type: 'string'})
@@ -21,13 +21,13 @@ export default class Tab {
       content: 'da content',
       action: null,
       hideableHead: false,
-    }, opt);
+    }, opt)
 
-    this.onChange = opt.onChange;
+    this.onChange = opt.onChange
   }
 
   get type() {
-    return 'tab';
+    return 'tab'
   }
 
   getStructure() {
@@ -36,16 +36,16 @@ export default class Tab {
       id: this.id,
       label: this.label,
       hideableHead: this.hideableHead,
-    };
+    }
   }
 
   _reportChange() {
-    if (this.onChange) this.onChange();
+    if (this.onChange) this.onChange()
   }
 
   getComponent(key) {
     return <TabComp
       key = {key}
-      {...pick(this, ['label', 'icon', 'content', 'action', 'hideableHead'])}/>;
+      {...pick(this, ['label', 'icon', 'content', 'action', 'hideableHead'])}/>
   }
 }

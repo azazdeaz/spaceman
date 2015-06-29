@@ -1,11 +1,11 @@
-import _isFinite from 'lodash/lang/isFinite';
+import _isFinite from 'lodash/lang/isFinite'
 
-let propMap = new WeakMap();
+let propMap = new WeakMap()
 
 
 export default (options) => {
 
-  var {name, type, valids, initialValue, get: getter, set: setter} = options;
+  var {name, type, valids, initialValue, get: getter, set: setter} = options
 
   return (target) => {
 
@@ -13,74 +13,74 @@ export default (options) => {
       enumerable: true,
 
       get() {
-        let table = getPropReg(this);
-        let ret;
+        let table = getPropReg(this)
+        let ret
 
         if (name in table) {
-          ret = table[name];
+          ret = table[name]
         }
         else {
-          ret = initialValue;
+          ret = initialValue
         }
 
         if (getter) {
-          ret = getter.call(this, ret);
+          ret = getter.call(this, ret)
         }
 
-        return ret;
+        return ret
       },
 
       set(nextVal) {
-        let table = getPropReg(this);
-        let oldVal = table[name];
+        let table = getPropReg(this)
+        let oldVal = table[name]
 
         if (oldVal === nextVal) {
-          return;
+          return
         }
 
         if (type || valids) {
-          nextVal = validateType(nextVal, type, valids);
+          nextVal = validateType(nextVal, type, valids)
         }
 
         if (setter) {
-          nextVal = setter.call(this, nextVal);
+          nextVal = setter.call(this, nextVal)
         }
 
-        table[name] = nextVal;
+        table[name] = nextVal
 
         if (this.onChange) {
-          this.onChange();
+          this.onChange()
         }
       }
-    });
-  };
-};
+    })
+  }
+}
 
 function validateType(value, type, valids) {
 
   if (valids && valids.indexOf(value) === -1) {
-    throw Error();
+    throw Error()
   }
 
-  if (type === 'string') return value + '';
+  if (type === 'string') return value + ''
   if (type === 'number') {
-    value = parseFloat(value);
-    if (!_isFinite(value)) throw Error();
-    return value;
+    value = parseFloat(value)
+    if (!_isFinite(value)) throw Error()
+    return value
   }
-  if (type === 'boolean') return !!value;
+  if (type === 'boolean') return !!value
 
-  return value;
+  return value
 }
 
 function getPropReg(instance) {
 
-  let table = propMap.get(instance);
+  let table = propMap.get(instance)
 
   if (!table) {
-    table = Object.create(null);
-    propMap.set(instance, table);
+    table = Object.create(null)
+    propMap.set(instance, table)
   }
 
-  return table;
+  return table
 }

@@ -1,60 +1,60 @@
-import React from 'react';
-import ResizerComp from './ResizerComp';
-import Matter from 'react-matterkit';
-var {getStyles} = Matter.utils;
+import React from 'react'
+import ResizerComp from './ResizerComp'
+import Matter from 'react-matterkit'
+var {getStyles} = Matter.utils
 
 export default class DividerComp extends React.Component {
 
   getContainerStyle(size, sizeMode) {
 
-    var {direction} = this.props;
+    var {direction} = this.props
     var style = {
       position: 'relative',
       display: 'flex',
-    };
+    }
 
     if (sizeMode === 'fix') {
-      style[direction === 'row' ? 'width' : 'height'] = size + 'px';
+      style[direction === 'row' ? 'width' : 'height'] = size + 'px'
     }
     else if (sizeMode === 'flex') {
-      style[direction === 'row' ? 'width' : 'height'] = '1px';
-      style.flex = size;
-      style.flexDirection = direction;
+      style[direction === 'row' ? 'width' : 'height'] = '1px'
+      style.flex = size
+      style.flexDirection = direction
     }
-    return style;
+    return style
   }
 
   _getFlexPerPx() {
 
-    var br = React.findDOMNode(this).getBoundingClientRect();
-    var fullPx = this.props.direction === 'row' ? br.width : br.height;
-    var fullFlex = 0;
+    var br = React.findDOMNode(this).getBoundingClientRect()
+    var fullPx = this.props.direction === 'row' ? br.width : br.height
+    var fullFlex = 0
 
     this.props.childModels.forEach(function (child) {
 
       if (child.sizeMode === 'fix') {
 
-        fullPx -= child.size;
+        fullPx -= child.size
       }
       else {
-        fullFlex += child.size;
+        fullFlex += child.size
       }
-    });
+    })
 
-    return fullFlex / fullPx;
+    return fullFlex / fullPx
   }
 
   render() {
-    var {childModels, direction} = this.props;
-    var _prevChild;
+    var {childModels, direction} = this.props
+    var _prevChild
 
     var children = childModels.map((child, idx) => {
-      var contStyle = this.getContainerStyle(child.size, child.sizeMode);
-      var resizer;
+      var contStyle = this.getContainerStyle(child.size, child.sizeMode)
+      var resizer
 
       if (idx > 0 && child.resizeable && _prevChild.resizeable) {
 
-        let prevChildSize = _prevChild.size;
+        let prevChildSize = _prevChild.size
 
         resizer = <ResizerComp
           onDown={() => ({
@@ -64,16 +64,16 @@ export default class DividerComp extends React.Component {
             nextChildSize: child.size,
           })}
           direction={direction}
-          onDrag={md => this.props.onDragResizer(md)}/>;
+          onDrag={md => this.props.onDragResizer(md)}/>
       }
 
-      _prevChild = child;
+      _prevChild = child
 
       return <div style={contStyle} key={idx}>
         {child.getComponent(idx)}
         {resizer}
-      </div>;
-    });
+      </div>
+    })
 
     var s = {
       display: 'flex',
@@ -81,10 +81,10 @@ export default class DividerComp extends React.Component {
       flexDirection: direction,
       flex: 1,
       background: getStyles(this).get('config', {grey: true}).normal,
-    };
+    }
 
     return <div style={s}>
       {children}
-    </div>;
+    </div>
   }
 }
