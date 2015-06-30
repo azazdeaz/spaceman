@@ -11,21 +11,24 @@ export default class DialogLayer extends React.Component {
 
   render() {
     var dialog = this.props.store.getCurrentDialog()
+    var dialogElement;
 
     if (!dialog) {
       return <div hidden/>
     }
 
-    if (typeof dialog === 'function') {
-      dialog = dialog()
+    if (React.isValidElement(dialog)) {
+      dialogElement = dialog
+    }
+    else if (typeof dialog === 'function') {
+      dialogElement = dialog()
+    }
+    else {
+      dialogElement = <this.props.DialogComponent {...dialog}/>
     }
 
-    if (!React.isValidElement(dialog)) {
-      dialog = <this.props.DialogComponent {...dialog}/>
-    }
-
-    if (!dialog.props.onClose) {
-      dialog = React.cloneElement(dialog, {
+    if (!dialogElement.props.onClose) {
+      dialogElement = React.cloneElement(dialogElement, {
         onClose: () => {
           this.props.store.hideDialog(dialog)
         }
@@ -35,9 +38,14 @@ export default class DialogLayer extends React.Component {
     return <div style={{
       position: 'absolute',
       width: '100%',
-      height: '100%'
+      height: '100%',
+      left: 0,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'rgba(0,0,0,.54)',
     }}>
-      {dialog}
+      {dialogElement}
     </div>
   }
 }

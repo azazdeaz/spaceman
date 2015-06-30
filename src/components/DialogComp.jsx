@@ -29,12 +29,14 @@ export default class DialogComponent extends React.Component {
   render() {
     var {title, content, children, onClose} = this.props
 
-    return <Panel>
+    return <Panel style={{padding: '0 12px'}}>
       <Toolbar>
         <Label label={title}/>
         <Button icon='close' onClick={onClose}/>
       </Toolbar>
-      {content || children}
+      <div>
+        {content || children}
+      </div>
       {this.renderButtons()}
     </Panel>
   }

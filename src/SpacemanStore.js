@@ -133,4 +133,11 @@ export default class SpacemanStore extends EventEmitter {
   getCurrentDialog() {
     return last(this._dialogStack)
   }
+
+  hideCurrentDialog() {
+    var currentDialog  = this.getCurrentDialog()
+    if (currentDialog) {
+      this.hideDialog(currentDialog)
+    }
+  }
 }
