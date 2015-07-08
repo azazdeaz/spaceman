@@ -34,7 +34,7 @@ export default class ResizerComp extends React.Component {
 
   render() {
 
-    var palette = getStyles(this).get('config', {palette: true})
+    var palette = getStyles(this).getStyle('config', {palette: true})
 
     var s = {
       position: 'absolute',

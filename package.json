@@ -1,6 +1,6 @@
 {
   "name": "spaceman",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "react based workspace - layout - manager",
   "main": "lib/index.js",
   "scripts": {
@@ -17,8 +17,6 @@
   "author": "Polgár András",
   "license": "MIT",
   "dependencies": {
-    "es6-symbol": "^2.0.1",
-    "eventman": "git://github.com/azazdeaz/eventman",
     "lodash": "^3.6.0"
   },
   "peerDependencies": {
