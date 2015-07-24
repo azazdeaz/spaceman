@@ -11,6 +11,7 @@ import Tab from './Tab'
 import BlockComp from './components/BlockComp'
 
 @prop({name: 'selectedTabId', type: 'int'})
+@prop({name: 'hole', type: 'boolean'})
 export default class Block extends Sizeable {
 
   constructor (opt = {}) {
@@ -18,7 +19,10 @@ export default class Block extends Sizeable {
       childTypes: {tab: Tab},
     }, opt))
 
-    this.selectedTabId = has(opt, 'selectedTabId') ? opt.selectedTabId : this.children[0].id
+    this.hole = !!opt.hole
+    this.selectedTabId = has(opt, 'selectedTabId') ?
+      opt.selectedTabId :
+       this.children[0] && this.children[0].id
   }
 
   get type() {
@@ -43,7 +47,7 @@ export default class Block extends Sizeable {
 
     return <BlockComp
       key = {key}
-      {...pick(this, ['size', 'sizeMode', 'resizeable'])}
+      {...pick(this, ['hole', 'size', 'sizeMode', 'resizeable'])}
       defaultTabIdx = {defaultTabIdx}
       onChangeTabIdx = {idx => this.handleChangeTabIdx(idx)}>
 

@@ -4,14 +4,11 @@ import {Tabs as MatterTabs} from 'react-matterkit'
 export default class BlockComp extends React.Component {
 
   noTabs() {
-
     var {children} = this.props
-
     return children.length === 1 && children[0].props.hideableHead
   }
 
   render() {
-
     if (this.props.hole) {
       return <div/>
     }

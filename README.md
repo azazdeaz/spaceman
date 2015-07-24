@@ -6,13 +6,13 @@ import {Spaceman, SpacemanStore} from 'spaceman'
 import defaultWorkspace from './defaultWorkspace'
 
 var workspace = localStoreage.lastWorkspace || defaultWorkspace
-Workspace = new SpacemanStore({source: workspace})
+Workspace = new SpacemanStore(workspace)
 
 Workspace.setTabContent('view', <Viewport/>)
 Workspace.setTabContent('tree', <TreeView/>)
 Workspace.setTabContent('style', <StyleView/>)
 ...
-Workspace.selectTab('tree');
+Workspace.selectTab('tree')
 
 Workspace.on('change', () => {//on change tabs, resize, etc.
   localStoreage.lastWorkspace = Workspace.model.getSource()

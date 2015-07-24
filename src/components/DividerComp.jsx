@@ -80,7 +80,7 @@ export default class DividerComp extends React.Component {
       position: 'relative',
       flexDirection: direction,
       flex: 1,
-      background: getStyles(this).getStyle('config', {grey: true}).normal,
+      // background: getStyles(this).getStyle('config', {grey: true}).normal,
     }
 
     return <div style={s}>

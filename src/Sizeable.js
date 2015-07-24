@@ -8,7 +8,7 @@ import prop from './prop'
 @prop({name: 'size', type: 'number'})
 @prop({name: 'sizeMode', type: 'string', valids: ['flex', 'fix']})
 @prop({name: 'resizeable', type: 'boolean'})
-export default class SizeableContainers {
+export default class SizeableContainer {
 
   constructor (opt) {
     this.size = has(opt, 'size') ? opt.size : 1
@@ -17,6 +17,7 @@ export default class SizeableContainers {
 
     this.childTypes = opt.childTypes
     this.children = []
+
     if (opt.children) opt.children.forEach(child => this.addChild(child))
 
     this.onChange = opt.onChange

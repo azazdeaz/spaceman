@@ -8,13 +8,10 @@ import Divider from './Divider'
 import Block from './Block'
 
 export default class SpacemanStore extends EventEmitter {
-
-  constructor(source) {
+  constructor(source = {type: 'divider'}) {
     super()
 
-    defaults(this, source, {
-      structure: {type: 'divider'},
-    })
+    this.structure = source
 
     this._dialogStack = []
   }
