@@ -41,6 +41,7 @@ export default class ResizerComp extends React.Component {
       backgroundColor: palette.blue,
       cursor: 'pointer',
       opacity: this.state.hover || this.state.dragging ? 1 : 0,
+      pointerEvents: 'auto'
     }
 
     if (this.props.direction === 'column'){
