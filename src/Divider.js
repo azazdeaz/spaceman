@@ -43,7 +43,7 @@ export default class Divider extends Sizeable {
     })
   }
 
-  handleDragResizer(md) {
+  handleDragResizer(props, monitor) {
     var move = this.direction === 'row' ? md.dx : md.dy
     var moveFlex = move * md.flexPerPx
     var prevChild = this.children[md.idx - 1]

@@ -1,7 +1,6 @@
 import React from 'react'
 import ResizerComp from './ResizerComp'
-import Matter from 'react-matterkit'
-var {getStyles} = Matter.utils
+import {getTheme} from 'react-matterkit'
 
 export default class DividerComp extends React.Component {
 
@@ -80,7 +79,7 @@ export default class DividerComp extends React.Component {
       position: 'relative',
       flexDirection: direction,
       flex: 1,
-      // background: getStyles(this).getStyle('config', {grey: true}).normal,
+      // background: getTheme(this).getStyle('config', {grey: true}).normal,
     }
 
     return <div style={s}>

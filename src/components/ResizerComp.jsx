@@ -1,7 +1,16 @@
 import React from 'react'
 import merge from 'lodash/object/merge'
-import Matter from 'react-matterkit'
-var {getStyles, CustomDrag} = Matter.utils
+import {getTheme, customDrag} from 'react-matterkit'
+
+const dragOptions = {
+  onDown(props, monitor, component) {
+    component.setState({dragging: true})
+    return props.onDown()
+  },
+  onDrag() {
+
+  }
+}
 
 export default class ResizerComp extends React.Component {
 
@@ -14,18 +23,18 @@ export default class ResizerComp extends React.Component {
     }
   }
 
-  componentDidMount() {
-
-    this._dragger = new CustomDrag({
-      deTarget: React.findDOMNode(this),
-      onDown: () => {
-        this.setState({dragging: true})
-        return this.props.onDown()
-      },
-      onDrag: this.props.onDrag,
-      onUp: () => this.setState({dragging: false}),
-    })
-  }
+  // componentDidMount() {
+  //
+  //   this._dragger = new CustomDrag({
+  //     deTarget: React.findDOMNode(this),
+  //     onDown: () => {
+  //       this.setState({dragging: true})
+  //       return this.props.onDown()
+  //     },
+  //     onDrag: this.props.onDrag,
+  //     onUp: () => this.setState({dragging: false}),
+  //   })
+  // }
 
   componentWillUnmount() {
 
@@ -34,7 +43,7 @@ export default class ResizerComp extends React.Component {
 
   render() {
 
-    var palette = getStyles(this).getStyle('config', {palette: true})
+    var palette = getTheme(this).getStyle('config', {palette: true})
 
     var s = {
       position: 'absolute',
