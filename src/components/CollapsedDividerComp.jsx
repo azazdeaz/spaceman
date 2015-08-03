@@ -2,9 +2,8 @@ import React from 'react'
 import {Button, Toolbar, ToolbarGroup} from 'react-matterkit'
 
 export default class CollapsedDividerComp extends React.Component {
-
   static contextTypes = {
-    store: React.PropTypes.object,
+    store: React.PropTypes.object.isRequired,
   }
 
   constructor(props) {

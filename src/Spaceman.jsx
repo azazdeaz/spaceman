@@ -16,7 +16,7 @@ export default class Spaceman extends React.Component {
   }
 
   static childContextTypes = {
-    store: React.PropTypes.object
+    store: React.PropTypes.object.isRequired
   }
 
   getChildContext() {

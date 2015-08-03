@@ -3,9 +3,7 @@ import ResizerComp from './ResizerComp'
 import {getTheme} from 'react-matterkit'
 
 export default class DividerComp extends React.Component {
-
   getContainerStyle(size, sizeMode) {
-
     var {direction} = this.props
     var style = {
       position: 'relative',
