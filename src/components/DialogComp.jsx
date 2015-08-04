@@ -1,9 +1,15 @@
 import React from 'react'
-import {Panel, Label, Button, Toolbar} from 'react-matterkit'
+import {Panel, Label, Button, Toolbar, getTheme} from 'react-matterkit'
 
 export default class DialogComponent extends React.Component {
   constructor(props) {
     super(props)
+  }
+
+  static defaultProps = {
+    title: 'title',
+    content: 'content',
+    buttons: [],
   }
 
   renderButtons() {
@@ -27,10 +33,11 @@ export default class DialogComponent extends React.Component {
   }
 
   render() {
-    var {title, content, children, onClose} = this.props
+    const {title, content, children, onClose} = this.props
+    const roundedCorners = getTheme(this).getStyle('roundedCorners')
 
-    return <Panel style={{padding: '0 12px'}}>
-      <Toolbar>
+    return <Panel style={{...roundedCorners, padding: '0 12px'}}>
+      <Toolbar style={{height: 48, backgroundColor: '#2A3035'}}>
         <Label label={title}/>
         <Button icon='close' onClick={onClose}/>
       </Toolbar>
