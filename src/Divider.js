@@ -43,17 +43,6 @@ export default class Divider extends Sizeable {
     })
   }
 
-  handleDragResizer(props, monitor) {
-    var move = this.direction === 'row' ? md.dx : md.dy
-    var moveFlex = move * md.flexPerPx
-    var prevChild = this.children[md.idx - 1]
-    var nextChild = this.children[md.idx]
-
-    prevChild.size = md.prevChildSize + (prevChild.sizeMode === 'fix' ? move : moveFlex)
-    nextChild.size = md.nextChildSize - (nextChild.sizeMode === 'fix' ? move : moveFlex)
-    this._reportChange()
-  }
-
   handleClickCollapsedTab = (tab) => {
     if (tab.action) {
       tab.action()
@@ -97,7 +86,6 @@ export default class Divider extends Sizeable {
       return <DividerComp
         key={key}
         {...pick(this, ['size', 'sizeMode', 'resizeable', 'direction'])}
-        onDragResizer = {md => this.handleDragResizer(md)}
         childModels = {this.children}/>
     }
   }
