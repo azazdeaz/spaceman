@@ -43,7 +43,7 @@ export default class Tab {
     if (this.onChange) this.onChange()
   }
 
-  getComponent(key) {
+  getElement(key) {
     return <TabComp
       key = {key}
       {...pick(this, ['label', 'icon', 'content', 'action', 'hideableHead'])}/>

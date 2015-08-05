@@ -39,7 +39,7 @@ export default class DividerComp extends React.Component {
       _prevChild = child
 
       return <div style={contStyle} key={idx}>
-        {child.getComponent(idx)}
+        {child.getElement(idx)}
         {resizer}
       </div>
     })

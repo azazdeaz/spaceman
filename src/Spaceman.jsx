@@ -1,5 +1,5 @@
 import React from 'react'
-import DialogLayer from './DialogLayer'
+import Overlays from './Overlays'
 import DialogComp from './components/DialogComp'
 
 export default class Spaceman extends React.Component {
@@ -45,8 +45,8 @@ export default class Spaceman extends React.Component {
         width: '100%',
         height: '100%',
       }}>
-      {store.model.getComponent('root')}
-      <DialogLayer store={store} DialogComponent={DialogComp}/>
+      {store.model.getElement('root')}
+      {store.overlays.getElement()}
     </div>
   }
 }

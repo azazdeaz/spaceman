@@ -1,9 +1,10 @@
+import React from 'react'
 import EventEmitter from 'events'
 import defaults from 'lodash/object/defaults'
 import isArray from 'lodash/lang/isArray'
-import pull from 'lodash/array/pull'
-import last from 'lodash/array/last'
 
+import Overlays from './Overlays'
+import Dialogs from './Dialogs'
 import Divider from './Divider'
 import Block from './Block'
 
@@ -14,6 +15,13 @@ export default class SpacemanStore extends EventEmitter {
     this.structure = source
 
     this._dialogStack = []
+    this.overlays = new Overlays()
+    this.dialogs = new Dialogs()
+
+    this.overlays.setOverlay('dialogs', {
+      index: 10,
+      getElement: () => this.dialogs.getElement()
+    })
   }
 
   get model () {
@@ -114,27 +122,5 @@ export default class SpacemanStore extends EventEmitter {
         item.expandedTabId = null
       }
     })
-  }
-
-  // Dialogs //////////////////////////////////////////////////////////////////
-  showDialog(dialog) {
-    this._dialogStack.push(dialog)
-    this.reportChange()
-  }
-
-  hideDialog(dialog) {
-    pull(this._dialogStack, dialog)
-    this.reportChange()
-  }
-
-  getCurrentDialog() {
-    return last(this._dialogStack)
-  }
-
-  hideCurrentDialog() {
-    var currentDialog  = this.getCurrentDialog()
-    if (currentDialog) {
-      this.hideDialog(currentDialog)
-    }
   }
 }

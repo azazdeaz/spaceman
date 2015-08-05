@@ -1,31 +1,22 @@
 import React from 'react'
 
-export default class DialogLayer extends React.Component {
+export default class DialogsComp extends React.Component {
   static propTypes = {
-    DialogComopnent: React.PropTypes.instanceOf(React.Component)
+    dialogsStore: React.PropTypes.object,
   }
 
-  constructor(props) {
-    super(props)
+  componentDidMount() {
+    this.props.dialogsStore.on('change', () => this.forceUpdate())
   }
 
   render() {
-    var dialog = this.props.store.getCurrentDialog()
-    var dialogElement;
+    const dialog = this.props.dialogsStore.getCurrentDialog()
 
     if (!dialog) {
       return <div hidden/>
     }
 
-    if (React.isValidElement(dialog)) {
-      dialogElement = dialog
-    }
-    else if (typeof dialog === 'function') {
-      dialogElement = dialog()
-    }
-    else {
-      dialogElement = <this.props.DialogComponent {...dialog}/>
-    }
+    var dialogElement = dialog.getElement()
 
     if (!dialogElement.props.onClose) {
       dialogElement = React.cloneElement(dialogElement, {

@@ -73,7 +73,7 @@ export default class Divider extends Sizeable {
     }
   }
 
-  getComponent(key) {
+  getElement(key) {
     if (this.collapsed) {
       return <CollapsedDividerComp
         key = {key}

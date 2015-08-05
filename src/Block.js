@@ -40,7 +40,7 @@ export default class Block extends Sizeable {
     this.selectedTabId = this.children[idx].id
   }
 
-  getComponent(key) {
+  getElement(key) {
     var defaultTabIdx = findIndex(this.children, childTab => {
       return childTab.id === this.selectedTabId
     })
@@ -51,7 +51,7 @@ export default class Block extends Sizeable {
       defaultTabIdx = {defaultTabIdx}
       onChangeTabIdx = {idx => this.handleChangeTabIdx(idx)}>
 
-      {this.children.map((child, idx) => child.getComponent(idx))}
+      {this.children.map((child, idx) => child.getElement(idx))}
     </BlockComp>
   }
 }

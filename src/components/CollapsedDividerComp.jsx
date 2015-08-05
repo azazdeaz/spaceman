@@ -58,7 +58,7 @@ export default class CollapsedDividerComp extends React.Component {
     }
 
     return <div style={s}>
-      {expandedTab.getComponent()}
+      {expandedTab.getElement()}
     </div>
   }
 
