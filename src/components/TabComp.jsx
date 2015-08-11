@@ -13,7 +13,7 @@ export default class TabComp extends React.Component {
     var {icon, label, content, action} = this.props
 
     return <div
-      style={{display: 'flex', flex: 1, overflow: 'hidden'}}
+      style={{display: 'flex', flex: 1}}
       openable={!!content}
       onSelect={() => action && action()}
       icon={icon}
