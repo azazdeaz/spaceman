@@ -12,7 +12,12 @@ export default class OverlaysComp extends React.Component {
 
   render() {
     const {overlaysStore} = this.props
-    const overlays = sortBy([...overlaysStore._overlays.values()], 'index')
+    // const overlays = sortBy([...overlaysStore._overlays.values()], 'index')
+    var overlays = []
+    overlaysStore._overlays.forEach((overlay, key) => {
+      overlays.push({...overlay, key})
+    })
+    overlays = sortBy(overlays, 'index')
     const absolute = {
       position: 'absolute',
       left: 0,
@@ -21,7 +26,7 @@ export default class OverlaysComp extends React.Component {
 
     return <div style={absolute}>
       {overlays.map(overlay => {
-        return <div style={absolute}>
+        return <div key={overlay.key} style={absolute}>
           {overlay.getElement()}
         </div>
       })}
