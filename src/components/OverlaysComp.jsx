@@ -22,6 +22,8 @@ export default class OverlaysComp extends React.Component {
       position: 'absolute',
       left: 0,
       top: 0,
+      width: '100%',
+      height: '100%',
     }
 
     return <div style={absolute}>

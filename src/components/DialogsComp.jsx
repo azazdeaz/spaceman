@@ -10,7 +10,8 @@ export default class DialogsComp extends React.Component {
   }
 
   render() {
-    const dialog = this.props.dialogsStore.getCurrentDialog()
+    const {dialogsStore} = this.props
+    const dialog = dialogsStore.getCurrentDialog()
 
     if (!dialog) {
       return <div hidden/>
@@ -21,7 +22,7 @@ export default class DialogsComp extends React.Component {
     if (!dialogElement.props.onClose) {
       dialogElement = React.cloneElement(dialogElement, {
         onClose: () => {
-          this.props.store.hideDialog(dialog)
+          dialogsStore.hideDialog(dialog)
         }
       })
     }
@@ -34,7 +35,7 @@ export default class DialogsComp extends React.Component {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: 'rgba(0,0,0,.54)',
+      backgroundColor: 'rgba(255,255,255,.24)',
     }}>
       {dialogElement}
     </div>
