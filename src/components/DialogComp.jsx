@@ -28,8 +28,25 @@ export default class DialogComponent extends React.Component {
     }
     return <div style={footerStyle}>
       {buttons.map((button, idx) => {
+        let buttonElement
+
+        if (button.getElement) {
+          buttonElement = button.getElement({close: onClose})
+        }
+        else {
+          button = {...button, style: {
+            ...button.style,
+            height: 32,
+            lineHeight: '32px'
+          }}
+          if (button.onClick === 'close') {
+            button = {...button, onClick: onClose}
+          }
+          buttonElement = <Button {...button}/>
+        }
+
         return <span key={idx}>
-          {button.getElement({close: onClose})}
+          {buttonElement}
         </span>
       })}
     </div>
