@@ -29,6 +29,7 @@ export default class DialogsComp extends React.Component {
 
     return <div style={{
       position: 'absolute',
+      pointerEvents: 'auto',
       width: '100%',
       height: '100%',
       left: 0,

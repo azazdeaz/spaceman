@@ -19,7 +19,7 @@ export default class SpacemanStore extends EventEmitter {
     this.dialogs = new Dialogs()
 
     this.overlays.setOverlay('dialogs', {
-      index: 10,
+      index: 100000,
       getElement: () => this.dialogs.getElement()
     })
   }
