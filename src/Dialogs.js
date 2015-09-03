@@ -25,7 +25,7 @@ export default class Dialogs extends EventEmitter {
   }
 
   hideCurrentDialog() {
-    var currentDialog  = this.getCurrentDialog()
+    var currentDialog = this.getCurrentDialog()
     if (currentDialog) {
       this.hideDialog(currentDialog)
     }

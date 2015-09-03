@@ -5,6 +5,7 @@ import isArray from 'lodash/lang/isArray'
 
 import Overlays from './Overlays'
 import Dialogs from './Dialogs'
+import ContextMenu from './ContextMenu'
 import Divider from './Divider'
 import Block from './Block'
 
@@ -17,6 +18,7 @@ export default class SpacemanStore extends EventEmitter {
     this._dialogStack = []
     this.overlays = new Overlays()
     this.dialogs = new Dialogs()
+    this.conextMenu = new ContextMenu()
 
     this.overlays.setOverlay('dialogs', {
       index: 100000,
