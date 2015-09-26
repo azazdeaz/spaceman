@@ -71,9 +71,9 @@ export default class DialogComponent extends React.Component {
       left: 0,
       top: 0,
       fontSize: '12px',
-      paddingLeft: 12,
     }
     const labelStyle = {
+      paddingLeft: 12,
       fontSize: '18px',
       lineHeight: '48px'
     }
