@@ -5,7 +5,7 @@ export default class DialogComponent extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     buttons: PropTypes.arrayOf(PropTypes.shape({
-      getElement: PropTypes.func.isRequired
+      getElement: PropTypes.func
     }))
   }
 
