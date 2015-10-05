@@ -17,15 +17,9 @@ export default class DialogsComp extends React.Component {
       return <div hidden/>
     }
 
-    var dialogElement = dialog.getElement()
-
-    if (!dialogElement.props.onClose) {
-      dialogElement = React.cloneElement(dialogElement, {
-        onClose: () => {
-          dialogsStore.hideDialog(dialog)
-        }
-      })
-    }
+    var dialogElement = dialog.getElement({onClose: () => {
+      dialogsStore.hideDialog(dialog)
+    }})
 
     return <div style={{
       position: 'absolute',
