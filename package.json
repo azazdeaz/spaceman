@@ -1,6 +1,6 @@
 {
   "name": "spaceman",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "react based workspace - layout - manager",
   "main": "lib/index.js",
   "scripts": {
