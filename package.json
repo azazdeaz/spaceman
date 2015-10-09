@@ -4,7 +4,7 @@
   "description": "react based workspace - layout - manager",
   "main": "lib/index.js",
   "scripts": {
-    "lib": "babel ./src --out-dir lib --source-maps",
+    "lib": "rm -rf lib && babel ./src --out-dir lib --source-maps",
     "lib-watch": "npm run lib && babel ./src --out-dir lib --source-maps --source-maps --watch"
   },
   "keywords": [
@@ -17,8 +17,10 @@
   "author": "Polgár András",
   "license": "MIT",
   "dependencies": {
+    "custom-drag": "0.0.2",
     "lodash": "^3.10.0",
-    "react-matterkit": "0.0.31"
+    "react-dom": "^0.14.0",
+    "react-matterkit": "0.0.39"
   },
   "devDependencies": {
     "babel": "^5.8.3",

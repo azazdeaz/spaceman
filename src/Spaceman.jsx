@@ -1,10 +1,11 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import Overlays from './Overlays'
 import DialogComp from './components/DialogComp'
 
 export default class Spaceman extends React.Component {
   static create(props, mount) {
-    return React.render(<Spaceman {...props}/>, mount)
+    return ReactDOM.render(<Spaceman {...props}/>, mount)
   }
 
   static propTypes = {

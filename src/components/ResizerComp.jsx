@@ -1,10 +1,11 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import merge from 'lodash/object/merge'
 import {getTheme} from 'react-matterkit'
-import customDrag from 'react-matterkit/lib/custom-drag'
+import customDrag from 'custom-drag'
 
 function getFlexPerPx(props, monitor, component) {
-  const containerNode = React.findDOMNode(component).parentNode.parentNode
+  const containerNode = ReactDOM.findDOMNode(component).parentNode.parentNode
   const br = containerNode.getBoundingClientRect()
   var fullSpaceForFlex = props.direction === 'row' ? br.width : br.height
   var fullFlex = 0
