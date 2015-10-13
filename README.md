@@ -1,5 +1,5 @@
 It's a React and Flux based workspace manager aiming to implement all the feature that you got use to in modern graphics editors. (like Adobe or Autodesk products)
-Work is in progress but the API will look something like this:
+**Work is in progress** but the API will look something like this:
 
 ```javascript
 import {Spaceman, SpacemanStore} from 'spaceman'
