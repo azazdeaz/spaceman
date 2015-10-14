@@ -18,7 +18,7 @@ export default class DialogsComp extends React.Component {
     }
 
     var dialogElement = dialog.getElement({onClose: () => {
-      dialogsStore.hideDialog(dialog)
+      dialogsStore.hide(dialog)
     }})
 
     return <div style={{
