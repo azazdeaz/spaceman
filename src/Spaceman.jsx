@@ -9,7 +9,8 @@ export default class Spaceman extends React.Component {
   }
 
   static propTypes = {
-    store: React.PropTypes.object
+    store: React.PropTypes.object,
+    style: React.PropTypes.object,
   }
 
   static defautProps = {
@@ -38,13 +39,14 @@ export default class Spaceman extends React.Component {
   }
 
   render() {
-    const {store, DialogComponent} = this.props
+    const {store, DialogComponent, style} = this.props
 
     return <div style={{
         display: 'flex',
         position: 'relative',
         width: '100%',
         height: '100%',
+        ...style,
       }}>
       {store.model.getElement('root')}
       {store.overlays.getElement()}
