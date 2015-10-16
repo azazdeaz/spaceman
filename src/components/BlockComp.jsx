@@ -26,7 +26,7 @@ export default class BlockComp extends React.Component {
           flex: 1,
           // pointerEvents: 'auto'
         }}
-        defaultTabIdx={this.props.defaultTabIdx}
+        currentTabIdx={this.props.currentTabIdx}
         onChangeTabIdx={this.props.onChangeTabIdx}>
 
         {this.props.children}

@@ -41,14 +41,14 @@ export default class Block extends Sizeable {
   }
 
   getElement(key) {
-    var defaultTabIdx = findIndex(this.children, childTab => {
+    var currentTabIdx = findIndex(this.children, childTab => {
       return childTab.id === this.selectedTabId
     })
 
     return <BlockComp
       key = {key}
       {...pick(this, ['hole', 'size', 'sizeMode', 'resizeable'])}
-      defaultTabIdx = {defaultTabIdx}
+      currentTabIdx = {currentTabIdx}
       onChangeTabIdx = {idx => this.handleChangeTabIdx(idx)}>
 
       {this.children.map((child, idx) => child.getElement(idx))}
