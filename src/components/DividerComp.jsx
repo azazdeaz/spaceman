@@ -8,6 +8,8 @@ export default class DividerComp extends React.Component {
     var style = {
       position: 'relative',
       display: 'flex',
+      'min-height': 0,
+      'min-width': 0,
     }
 
     if (sizeMode === 'fix') {
@@ -49,6 +51,8 @@ export default class DividerComp extends React.Component {
       position: 'relative',
       flexDirection: direction,
       flex: 1,
+      'min-height': 0,
+      'min-width': 0,
       // background: getTheme(this).getStyle('config', {grey: true}).normal,
     }
 

@@ -15,6 +15,8 @@ export default class BlockComp extends React.Component {
       return <div id='noTabs' style={{
           flex: 1,
           display: 'flex',
+          'min-height': 0,
+          'min-width': 0,
           // pointerEvents: 'auto'
         }}>
         {this.props.children}
@@ -24,6 +26,8 @@ export default class BlockComp extends React.Component {
       return <MatterTabs
         style={{
           flex: 1,
+          'min-width': 0,
+          'min-height': 0,
           // pointerEvents: 'auto'
         }}
         currentTabIdx={this.props.currentTabIdx}
